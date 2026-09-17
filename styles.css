@@ -26,6 +26,120 @@ a {
   text-decoration: none;
 }
 
+/* ---------- Intro poem ---------- */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 42%, #101210 0%, #050606 72%);
+  padding: 48px 24px;
+  cursor: pointer;
+  transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease;
+}
+
+.intro.leaving {
+  opacity: 0;
+  transform: scale(1.14);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.intro.reduced {
+  transition: opacity 0.4s ease;
+}
+
+.intro.reduced.leaving {
+  transform: none;
+  filter: none;
+}
+
+.poem {
+  max-width: 480px;
+  text-align: center;
+}
+
+.poem-title {
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
+
+.poem-byline {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  margin: 0 0 44px;
+  letter-spacing: 0.05em;
+}
+
+.stanza {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #d8d5cc;
+  margin: 0 0 28px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: stanzaIn 1s ease forwards;
+}
+
+.s1 { animation-delay: 0.3s; }
+.s2 { animation-delay: 1.5s; }
+.s3 { animation-delay: 2.7s; }
+.s4 { animation-delay: 3.9s; }
+
+.enter-btn {
+  margin-top: 16px;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  cursor: pointer;
+  opacity: 0;
+  animation: stanzaIn 1s ease forwards;
+  animation-delay: 5.1s;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.enter-btn:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.enter-btn .arrow {
+  display: inline-block;
+  animation: bob 1.8s ease-in-out infinite;
+}
+
+@keyframes stanzaIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+.intro.reduced .stanza,
+.intro.reduced .enter-btn {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 600px) {
+  .poem-title { font-size: 1.2rem; }
+  .stanza { font-size: 0.95rem; line-height: 1.8; margin-bottom: 22px; }
+}
+
 /* ---------- Home scene ---------- */
 
 .scene {
@@ -35,6 +149,24 @@ a {
   min-height: 560px;
   overflow: hidden;
   background: #050607;
+  transition: transform 1.7s cubic-bezier(0.22, 0.61, 0.36, 1), filter 1.7s ease, opacity 1.7s ease;
+}
+
+.scene.pre {
+  transform: scale(1.2);
+  filter: blur(6px);
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene {
+    transition: opacity 0.4s ease;
+  }
+  .scene.pre {
+    transform: none;
+    filter: none;
+    opacity: 0.6;
+  }
 }
 
 .scene svg {

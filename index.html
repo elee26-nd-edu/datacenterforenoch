@@ -12,7 +12,40 @@
 </head>
 <body>
 
-  <div class="scene">
+  <div class="intro" id="intro" role="button" tabindex="0" aria-label="Continue to site">
+    <div class="poem">
+      <p class="poem-title">The Road Not Taken</p>
+      <p class="poem-byline">Robert Frost</p>
+      <div class="poem-body">
+        <p class="stanza s1">Two roads diverged in a yellow wood,<br>
+        And sorry I could not travel both<br>
+        And be one traveler, long I stood<br>
+        And looked down one as far as I could<br>
+        To where it bent in the undergrowth;</p>
+
+        <p class="stanza s2">Then took the other, as just as fair,<br>
+        And having perhaps the better claim,<br>
+        Because it was grassy and wanted wear;<br>
+        Though as for that the passing there<br>
+        Had worn them really about the same,</p>
+
+        <p class="stanza s3">And both that morning equally lay<br>
+        In leaves no step had trodden black.<br>
+        Oh, I kept the first for another day!<br>
+        Yet knowing how way leads on to way,<br>
+        I doubted if I should ever come back.</p>
+
+        <p class="stanza s4">I shall be telling this with a sigh<br>
+        Somewhere ages and ages hence:<br>
+        Two roads diverged in a wood, and I&mdash;<br>
+        I took the one less traveled by,<br>
+        And that has made all the difference.</p>
+      </div>
+      <button class="enter-btn" id="enterBtn" type="button">Enter <span class="arrow">&darr;</span></button>
+    </div>
+  </div>
+
+  <div class="scene pre" id="scene">
     <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
@@ -26,8 +59,8 @@
           <stop offset="100%" stop-color="#5a6068" stop-opacity="0"/>
         </radialGradient>
         <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#3a3b39"/>
-          <stop offset="100%" stop-color="#221f1a"/>
+          <stop offset="0%" stop-color="#4a4433"/>
+          <stop offset="100%" stop-color="#241d12"/>
         </linearGradient>
         <linearGradient id="vignette" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#000000" stop-opacity="0.55"/>
@@ -35,6 +68,9 @@
           <stop offset="80%" stop-color="#000000" stop-opacity="0"/>
           <stop offset="100%" stop-color="#000000" stop-opacity="0.6"/>
         </linearGradient>
+        <clipPath id="roadClip">
+          <polygon points="620,900 650,820 659,740 696,660 705,580 742,500 751,420 770,380 830,380 847,420 858,500 893,580 904,660 939,740 950,820 980,900"/>
+        </clipPath>
 
         <g id="pine">
           <rect x="-4" y="-14" width="8" height="14" fill="currentColor"/>
@@ -66,10 +102,40 @@
       <use href="#pine" x="1040" y="540" transform="translate(1040,540) scale(0.58)" style="color:#2a322a" opacity="0.65"/>
       <use href="#pine" x="1160" y="540" transform="translate(1160,540) scale(0.5)" style="color:#2a322a" opacity="0.55"/>
 
-      <!-- road -->
-      <polygon points="620,900 980,900 830,380 770,380" fill="url(#road)"/>
-      <path d="M 760 900 C 770 700, 785 500, 796 388" stroke="#4a463d" stroke-width="3" fill="none" opacity="0.4"/>
-      <path d="M 840 900 C 830 700, 815 500, 804 388" stroke="#4a463d" stroke-width="3" fill="none" opacity="0.4"/>
+      <!-- unpaved road -->
+      <polygon points="620,900 650,820 659,740 696,660 705,580 742,500 751,420 770,380 830,380 847,420 858,500 893,580 904,660 939,740 950,820 980,900" fill="url(#road)"/>
+
+      <g clip-path="url(#roadClip)">
+        <path d="M 758 900 C 768 700, 784 500, 796 388" stroke="#5c5240" stroke-width="5" fill="none" opacity="0.35"/>
+        <path d="M 842 900 C 830 700, 814 500, 804 388" stroke="#5c5240" stroke-width="5" fill="none" opacity="0.35"/>
+        <path d="M 800 900 C 800 700, 799 500, 800 388" stroke="#1a1409" stroke-width="10" fill="none" opacity="0.25"/>
+
+        <circle cx="790" cy="430" r="2" fill="#6b6045" opacity="0.5"/>
+        <circle cx="812" cy="450" r="1.6" fill="#241d12" opacity="0.4"/>
+        <circle cx="772" cy="470" r="2.2" fill="#7a6d4e" opacity="0.45"/>
+        <circle cx="826" cy="490" r="1.8" fill="#1c160d" opacity="0.4"/>
+        <circle cx="760" cy="520" r="2.4" fill="#6b6045" opacity="0.5"/>
+        <circle cx="840" cy="540" r="2" fill="#241d12" opacity="0.4"/>
+        <circle cx="795" cy="555" r="2.6" fill="#7a6d4e" opacity="0.4"/>
+        <circle cx="740" cy="575" r="2.8" fill="#1c160d" opacity="0.45"/>
+        <circle cx="860" cy="590" r="2.4" fill="#6b6045" opacity="0.45"/>
+        <circle cx="805" cy="610" r="3" fill="#241d12" opacity="0.4"/>
+        <circle cx="720" cy="630" r="3.2" fill="#7a6d4e" opacity="0.4"/>
+        <circle cx="880" cy="645" r="2.8" fill="#1c160d" opacity="0.45"/>
+        <circle cx="770" cy="665" r="3.4" fill="#6b6045" opacity="0.45"/>
+        <circle cx="830" cy="685" r="3" fill="#241d12" opacity="0.4"/>
+        <circle cx="700" cy="700" r="3.6" fill="#7a6d4e" opacity="0.4"/>
+        <circle cx="905" cy="715" r="3.2" fill="#1c160d" opacity="0.45"/>
+        <circle cx="800" cy="730" r="4" fill="#6b6045" opacity="0.4"/>
+        <circle cx="680" cy="750" r="3.8" fill="#241d12" opacity="0.4"/>
+        <circle cx="930" cy="765" r="3.6" fill="#7a6d4e" opacity="0.4"/>
+        <circle cx="760" cy="790" r="4.4" fill="#1c160d" opacity="0.45"/>
+        <circle cx="850" cy="805" r="4" fill="#6b6045" opacity="0.4"/>
+        <circle cx="650" cy="820" r="4.2" fill="#241d12" opacity="0.4"/>
+        <circle cx="960" cy="835" r="4" fill="#7a6d4e" opacity="0.4"/>
+        <circle cx="790" cy="860" r="4.8" fill="#1c160d" opacity="0.45"/>
+        <circle cx="700" cy="875" r="4.4" fill="#6b6045" opacity="0.4"/>
+      </g>
 
       <use href="#pine" x="630" y="620" transform="translate(630,620) scale(0.82)" style="color:#1c211a" opacity="0.82"/>
       <use href="#pine" x="480" y="620" transform="translate(480,620) scale(0.72)" style="color:#1c211a" opacity="0.78"/>
@@ -110,6 +176,41 @@
       <a class="item-5" href="insights.html">Insights <span class="num">(05)</span></a>
     </nav>
   </div>
+
+  <script>
+    (function () {
+      var intro = document.getElementById('intro');
+      var scene = document.getElementById('scene');
+      var enterBtn = document.getElementById('enterBtn');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var left = false;
+
+      function reveal() {
+        if (left) return;
+        left = true;
+        intro.classList.add('leaving');
+        scene.classList.remove('pre');
+        setTimeout(function () {
+          intro.style.display = 'none';
+        }, reduceMotion ? 50 : 1300);
+      }
+
+      if (reduceMotion) {
+        intro.classList.add('reduced');
+      }
+
+      intro.addEventListener('click', reveal);
+      enterBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        reveal();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') reveal();
+      });
+
+      setTimeout(reveal, reduceMotion ? 3000 : 9000);
+    })();
+  </script>
 
 </body>
 </html>
