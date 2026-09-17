@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Name</title>
-  <meta name="description" content="Personal website of Your Name.">
+  <title>Enoch</title>
+  <meta name="description" content="Personal website of Enoch.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -59,8 +59,8 @@
           <stop offset="100%" stop-color="#5a6068" stop-opacity="0"/>
         </radialGradient>
         <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#4a4433"/>
-          <stop offset="100%" stop-color="#241d12"/>
+          <stop offset="0%" stop-color="#3a3b39"/>
+          <stop offset="100%" stop-color="#221f1a"/>
         </linearGradient>
         <linearGradient id="vignette" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#000000" stop-opacity="0.55"/>
@@ -68,9 +68,6 @@
           <stop offset="80%" stop-color="#000000" stop-opacity="0"/>
           <stop offset="100%" stop-color="#000000" stop-opacity="0.6"/>
         </linearGradient>
-        <clipPath id="roadClip">
-          <polygon points="620,900 650,820 659,740 696,660 705,580 742,500 751,420 770,380 830,380 847,420 858,500 893,580 904,660 939,740 950,820 980,900"/>
-        </clipPath>
 
         <g id="pine">
           <rect x="-4" y="-14" width="8" height="14" fill="currentColor"/>
@@ -102,40 +99,10 @@
       <use href="#pine" x="1040" y="540" transform="translate(1040,540) scale(0.58)" style="color:#2a322a" opacity="0.65"/>
       <use href="#pine" x="1160" y="540" transform="translate(1160,540) scale(0.5)" style="color:#2a322a" opacity="0.55"/>
 
-      <!-- unpaved road -->
-      <polygon points="620,900 650,820 659,740 696,660 705,580 742,500 751,420 770,380 830,380 847,420 858,500 893,580 904,660 939,740 950,820 980,900" fill="url(#road)"/>
-
-      <g clip-path="url(#roadClip)">
-        <path d="M 758 900 C 768 700, 784 500, 796 388" stroke="#5c5240" stroke-width="5" fill="none" opacity="0.35"/>
-        <path d="M 842 900 C 830 700, 814 500, 804 388" stroke="#5c5240" stroke-width="5" fill="none" opacity="0.35"/>
-        <path d="M 800 900 C 800 700, 799 500, 800 388" stroke="#1a1409" stroke-width="10" fill="none" opacity="0.25"/>
-
-        <circle cx="790" cy="430" r="2" fill="#6b6045" opacity="0.5"/>
-        <circle cx="812" cy="450" r="1.6" fill="#241d12" opacity="0.4"/>
-        <circle cx="772" cy="470" r="2.2" fill="#7a6d4e" opacity="0.45"/>
-        <circle cx="826" cy="490" r="1.8" fill="#1c160d" opacity="0.4"/>
-        <circle cx="760" cy="520" r="2.4" fill="#6b6045" opacity="0.5"/>
-        <circle cx="840" cy="540" r="2" fill="#241d12" opacity="0.4"/>
-        <circle cx="795" cy="555" r="2.6" fill="#7a6d4e" opacity="0.4"/>
-        <circle cx="740" cy="575" r="2.8" fill="#1c160d" opacity="0.45"/>
-        <circle cx="860" cy="590" r="2.4" fill="#6b6045" opacity="0.45"/>
-        <circle cx="805" cy="610" r="3" fill="#241d12" opacity="0.4"/>
-        <circle cx="720" cy="630" r="3.2" fill="#7a6d4e" opacity="0.4"/>
-        <circle cx="880" cy="645" r="2.8" fill="#1c160d" opacity="0.45"/>
-        <circle cx="770" cy="665" r="3.4" fill="#6b6045" opacity="0.45"/>
-        <circle cx="830" cy="685" r="3" fill="#241d12" opacity="0.4"/>
-        <circle cx="700" cy="700" r="3.6" fill="#7a6d4e" opacity="0.4"/>
-        <circle cx="905" cy="715" r="3.2" fill="#1c160d" opacity="0.45"/>
-        <circle cx="800" cy="730" r="4" fill="#6b6045" opacity="0.4"/>
-        <circle cx="680" cy="750" r="3.8" fill="#241d12" opacity="0.4"/>
-        <circle cx="930" cy="765" r="3.6" fill="#7a6d4e" opacity="0.4"/>
-        <circle cx="760" cy="790" r="4.4" fill="#1c160d" opacity="0.45"/>
-        <circle cx="850" cy="805" r="4" fill="#6b6045" opacity="0.4"/>
-        <circle cx="650" cy="820" r="4.2" fill="#241d12" opacity="0.4"/>
-        <circle cx="960" cy="835" r="4" fill="#7a6d4e" opacity="0.4"/>
-        <circle cx="790" cy="860" r="4.8" fill="#1c160d" opacity="0.45"/>
-        <circle cx="700" cy="875" r="4.4" fill="#6b6045" opacity="0.4"/>
-      </g>
+      <!-- road -->
+      <polygon points="620,900 980,900 830,380 770,380" fill="url(#road)"/>
+      <path d="M 760 900 C 770 700, 785 500, 796 388" stroke="#4a463d" stroke-width="3" fill="none" opacity="0.4"/>
+      <path d="M 840 900 C 830 700, 815 500, 804 388" stroke="#4a463d" stroke-width="3" fill="none" opacity="0.4"/>
 
       <use href="#pine" x="630" y="620" transform="translate(630,620) scale(0.82)" style="color:#1c211a" opacity="0.82"/>
       <use href="#pine" x="480" y="620" transform="translate(480,620) scale(0.72)" style="color:#1c211a" opacity="0.78"/>
@@ -166,7 +133,14 @@
       <rect x="0" y="0" width="1600" height="900" fill="url(#vignette)"/>
     </svg>
 
-    <span class="brand">Your Name</span>
+    <span class="brand">enoch</span>
+
+    <div class="final-quote" id="finalQuote">
+      <p>Two roads diverged in a wood, and I&mdash;<br>
+      I took the one less traveled by,<br>
+      And that has made all the difference.</p>
+      <p class="fq-byline">&mdash; Robert Frost</p>
+    </div>
 
     <nav class="road-nav">
       <a class="item-1" href="about.html">About Me <span class="num">(01)</span></a>
@@ -182,6 +156,7 @@
       var intro = document.getElementById('intro');
       var scene = document.getElementById('scene');
       var enterBtn = document.getElementById('enterBtn');
+      var finalQuote = document.getElementById('finalQuote');
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var left = false;
 
@@ -190,6 +165,7 @@
         left = true;
         intro.classList.add('leaving');
         scene.classList.remove('pre');
+        finalQuote.classList.add('visible');
         setTimeout(function () {
           intro.style.display = 'none';
         }, reduceMotion ? 50 : 1300);
