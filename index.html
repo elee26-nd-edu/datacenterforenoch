@@ -5,71 +5,111 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Name</title>
   <meta name="description" content="Personal website of Your Name.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="container">
-      <span class="logo">Your Name</span>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+  <div class="scene">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#050608"/>
+          <stop offset="55%" stop-color="#0a0c0d"/>
+          <stop offset="100%" stop-color="#111312"/>
+        </linearGradient>
+        <radialGradient id="fog" cx="50%" cy="42%" r="55%">
+          <stop offset="0%" stop-color="#5a6068" stop-opacity="0.55"/>
+          <stop offset="60%" stop-color="#5a6068" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#5a6068" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3a3b39"/>
+          <stop offset="100%" stop-color="#221f1a"/>
+        </linearGradient>
+        <linearGradient id="vignette" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#000000" stop-opacity="0.55"/>
+          <stop offset="20%" stop-color="#000000" stop-opacity="0"/>
+          <stop offset="80%" stop-color="#000000" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#000000" stop-opacity="0.6"/>
+        </linearGradient>
 
-  <main>
-    <section id="hero" class="container">
-      <h1>Hi, I'm Your Name.</h1>
-      <p class="subtitle">One or two sentences about who you are and what you do.</p>
-    </section>
+        <g id="pine">
+          <rect x="-4" y="-14" width="8" height="14" fill="currentColor"/>
+          <polygon points="-24,-14 24,-14 0,-54" fill="currentColor"/>
+          <polygon points="-18,-40 18,-40 0,-78" fill="currentColor"/>
+          <polygon points="-12,-66 12,-66 0,-100" fill="currentColor"/>
+        </g>
+      </defs>
 
-    <section id="about" class="container">
-      <h2>About</h2>
-      <p>
-        Write a few sentences about yourself here — your background,
-        interests, or what you're currently working on.
-      </p>
-    </section>
+      <rect x="0" y="0" width="1600" height="900" fill="url(#sky)"/>
 
-    <section id="work" class="container">
-      <h2>Work</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Project One</h3>
-          <p>Short description of this project or piece of work.</p>
-          <a href="#">View →</a>
-        </article>
-        <article class="card">
-          <h3>Project Two</h3>
-          <p>Short description of this project or piece of work.</p>
-          <a href="#">View →</a>
-        </article>
-        <article class="card">
-          <h3>Project Three</h3>
-          <p>Short description of this project or piece of work.</p>
-          <a href="#">View →</a>
-        </article>
-      </div>
-    </section>
+      <!-- far trees -->
+      <use href="#pine" x="730" y="420" transform="translate(730,420) scale(0.32)" style="color:#4d545c" opacity="0.4"/>
+      <use href="#pine" x="680" y="420" transform="translate(680,420) scale(0.3)" style="color:#4d545c" opacity="0.35"/>
+      <use href="#pine" x="870" y="420" transform="translate(870,420) scale(0.32)" style="color:#4d545c" opacity="0.4"/>
+      <use href="#pine" x="920" y="420" transform="translate(920,420) scale(0.3)" style="color:#4d545c" opacity="0.35"/>
 
-    <section id="contact" class="container">
-      <h2>Contact</h2>
-      <p>
-        Reach me at <a href="mailto:you@example.com">you@example.com</a>
-        or find me on
-        <a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a>
-        and
-        <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a>.
-      </p>
-    </section>
-  </main>
+      <use href="#pine" x="700" y="480" transform="translate(700,480) scale(0.48)" style="color:#3c4440" opacity="0.55"/>
+      <use href="#pine" x="610" y="480" transform="translate(610,480) scale(0.44)" style="color:#3c4440" opacity="0.5"/>
+      <use href="#pine" x="900" y="480" transform="translate(900,480) scale(0.48)" style="color:#3c4440" opacity="0.55"/>
+      <use href="#pine" x="990" y="480" transform="translate(990,480) scale(0.44)" style="color:#3c4440" opacity="0.5"/>
 
-  <footer class="container">
-    <p>&copy; 2026 Your Name.</p>
-  </footer>
+      <ellipse cx="800" cy="400" rx="500" ry="220" fill="url(#fog)"/>
+
+      <use href="#pine" x="670" y="540" transform="translate(670,540) scale(0.62)" style="color:#2a322a" opacity="0.7"/>
+      <use href="#pine" x="560" y="540" transform="translate(560,540) scale(0.58)" style="color:#2a322a" opacity="0.65"/>
+      <use href="#pine" x="440" y="540" transform="translate(440,540) scale(0.5)" style="color:#2a322a" opacity="0.55"/>
+      <use href="#pine" x="930" y="540" transform="translate(930,540) scale(0.62)" style="color:#2a322a" opacity="0.7"/>
+      <use href="#pine" x="1040" y="540" transform="translate(1040,540) scale(0.58)" style="color:#2a322a" opacity="0.65"/>
+      <use href="#pine" x="1160" y="540" transform="translate(1160,540) scale(0.5)" style="color:#2a322a" opacity="0.55"/>
+
+      <!-- road -->
+      <polygon points="620,900 980,900 830,380 770,380" fill="url(#road)"/>
+      <path d="M 760 900 C 770 700, 785 500, 796 388" stroke="#4a463d" stroke-width="3" fill="none" opacity="0.4"/>
+      <path d="M 840 900 C 830 700, 815 500, 804 388" stroke="#4a463d" stroke-width="3" fill="none" opacity="0.4"/>
+
+      <use href="#pine" x="630" y="620" transform="translate(630,620) scale(0.82)" style="color:#1c211a" opacity="0.82"/>
+      <use href="#pine" x="480" y="620" transform="translate(480,620) scale(0.72)" style="color:#1c211a" opacity="0.78"/>
+      <use href="#pine" x="300" y="620" transform="translate(300,620) scale(0.6)" style="color:#1c211a" opacity="0.7"/>
+      <use href="#pine" x="970" y="620" transform="translate(970,620) scale(0.82)" style="color:#1c211a" opacity="0.82"/>
+      <use href="#pine" x="1120" y="620" transform="translate(1120,620) scale(0.72)" style="color:#1c211a" opacity="0.78"/>
+      <use href="#pine" x="1300" y="620" transform="translate(1300,620) scale(0.6)" style="color:#1c211a" opacity="0.7"/>
+
+      <use href="#pine" x="580" y="700" transform="translate(580,700) scale(1.05)" style="color:#12150f" opacity="0.92"/>
+      <use href="#pine" x="380" y="700" transform="translate(380,700) scale(0.9)" style="color:#12150f" opacity="0.88"/>
+      <use href="#pine" x="150" y="700" transform="translate(150,700) scale(0.75)" style="color:#12150f" opacity="0.8"/>
+      <use href="#pine" x="1020" y="700" transform="translate(1020,700) scale(1.05)" style="color:#12150f" opacity="0.92"/>
+      <use href="#pine" x="1220" y="700" transform="translate(1220,700) scale(0.9)" style="color:#12150f" opacity="0.88"/>
+      <use href="#pine" x="1450" y="700" transform="translate(1450,700) scale(0.75)" style="color:#12150f" opacity="0.8"/>
+
+      <use href="#pine" x="520" y="780" transform="translate(520,780) scale(1.3)" style="color:#0b0d09" opacity="1"/>
+      <use href="#pine" x="260" y="780" transform="translate(260,780) scale(1.1)" style="color:#0b0d09" opacity="1"/>
+      <use href="#pine" x="30" y="780" transform="translate(30,780) scale(0.95)" style="color:#0b0d09" opacity="1"/>
+      <use href="#pine" x="1080" y="780" transform="translate(1080,780) scale(1.3)" style="color:#0b0d09" opacity="1"/>
+      <use href="#pine" x="1340" y="780" transform="translate(1340,780) scale(1.1)" style="color:#0b0d09" opacity="1"/>
+      <use href="#pine" x="1570" y="780" transform="translate(1570,780) scale(0.95)" style="color:#0b0d09" opacity="1"/>
+
+      <use href="#pine" x="450" y="860" transform="translate(450,860) scale(1.55)" style="color:#070805" opacity="1"/>
+      <use href="#pine" x="150" y="860" transform="translate(150,860) scale(1.35)" style="color:#070805" opacity="1"/>
+      <use href="#pine" x="1150" y="860" transform="translate(1150,860) scale(1.55)" style="color:#070805" opacity="1"/>
+      <use href="#pine" x="1450" y="860" transform="translate(1450,860) scale(1.35)" style="color:#070805" opacity="1"/>
+
+      <rect x="0" y="0" width="1600" height="900" fill="url(#vignette)"/>
+    </svg>
+
+    <span class="brand">Your Name</span>
+
+    <nav class="road-nav">
+      <a class="item-1" href="about.html">About Me <span class="num">(01)</span></a>
+      <a class="item-2" href="reading.html">Reading <span class="num">(02)</span></a>
+      <a class="item-3" href="people.html">People <span class="num">(03)</span></a>
+      <a class="item-4" href="training.html">Training <span class="num">(04)</span></a>
+      <a class="item-5" href="insights.html">Insights <span class="num">(05)</span></a>
+    </nav>
+  </div>
 
 </body>
 </html>
