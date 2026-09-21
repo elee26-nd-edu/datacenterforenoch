@@ -9,6 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    try {
+      if (sessionStorage.getItem('introSeen')) {
+        document.documentElement.classList.add('skip-intro');
+      }
+    } catch (e) {}
+  </script>
 </head>
 <body>
 
@@ -159,6 +166,15 @@
       var finalQuote = document.getElementById('finalQuote');
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var left = false;
+
+      if (document.documentElement.classList.contains('skip-intro')) {
+        intro.style.display = 'none';
+        scene.classList.remove('pre');
+        finalQuote.classList.add('visible');
+        return;
+      }
+
+      try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
 
       function reveal() {
         if (left) return;
