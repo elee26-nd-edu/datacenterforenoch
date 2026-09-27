@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  <div class="scene pre" id="scene">
+  <div class="scene pre" id="scene" data-season="summer">
     <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
@@ -140,7 +140,11 @@
       <rect x="0" y="0" width="1600" height="900" fill="url(#vignette)"/>
     </svg>
 
+    <div class="season-overlay"></div>
+
     <span class="brand">enoch</span>
+
+    <button class="season-btn" id="seasonBtn" type="button">Season <span id="seasonLabel">Summer</span></button>
 
     <div class="final-quote" id="finalQuote">
       <p>Two roads diverged in a wood, and I&mdash;<br>
@@ -201,6 +205,23 @@
       });
 
       setTimeout(reveal, reduceMotion ? 3000 : 9000);
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var scene = document.getElementById('scene');
+      var seasonBtn = document.getElementById('seasonBtn');
+      var seasonLabel = document.getElementById('seasonLabel');
+      var seasons = ['spring', 'summer', 'fall', 'winter'];
+      var index = 1;
+
+      seasonBtn.addEventListener('click', function () {
+        index = (index + 1) % seasons.length;
+        var season = seasons[index];
+        scene.setAttribute('data-season', season);
+        seasonLabel.textContent = season.charAt(0).toUpperCase() + season.slice(1);
+      });
     })();
   </script>
 
