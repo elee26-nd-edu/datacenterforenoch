@@ -264,10 +264,31 @@ a {
 }
 
 .scene[data-season="summer"] svg {
-  filter: none;
+  filter: saturate(1.15);
+}
+.scene[data-season="summer"] .sky-rect {
+  fill: url(#skySummer);
+}
+.scene[data-season="summer"] .fog-ellipse {
+  fill: url(#fogSummer);
+}
+.scene[data-season="summer"] .road-fill {
+  fill: url(#roadSummer);
 }
 .scene[data-season="summer"] .season-overlay {
-  opacity: 0;
+  background-color: #fff1c4;
+  opacity: 0.1;
+}
+
+.scene[data-season="summer"] {
+  --fg: #332f1e;
+  --muted: #5c5636;
+  --line: rgba(51, 47, 30, 0.35);
+}
+
+.scene[data-season="summer"] .road-nav a,
+.scene[data-season="summer"] .final-quote p {
+  text-shadow: 0 1px 6px rgba(255, 250, 230, 0.7);
 }
 .scene[data-season="summer"] .fx-summer {
   opacity: 1;
