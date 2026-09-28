@@ -626,10 +626,16 @@
         for (var i = 0; i < NUM_ROCKS; i++) {
           var bandTop = ROCK_Y_MAX - (i + 1) * band;
           var y = bandTop + Math.random() * band * 0.85;
-          var halfW = (roadRightX(y) - roadLeftX(y)) / 2;
-          var maxOffset = halfW * (0.35 + Math.random() * 0.35);
-          var x = 800 + (Math.random() * 2 - 1) * maxOffset;
           var sizeVariance = 0.7 + Math.random() * 0.75;
+          // Keep the offset within the rock's own collision half-width (scaled the
+          // same way checkRocks() computes it) so it always overlaps the default
+          // straight-down path and actually has to be dodged, while still varying
+          // left/right from rock to rock.
+          var collideHalfW = ROCK_HALF_WIDTH * scaleForY(y) * sizeVariance;
+          var maxOffset = collideHalfW * 0.75;
+          var x = 800 + (Math.random() * 2 - 1) * maxOffset;
+          var roadHalfW = (roadRightX(y) - roadLeftX(y)) / 2 - ROAD_MARGIN;
+          x = clamp(x, 800 - roadHalfW, 800 + roadHalfW);
           var shape = ROCK_SHAPES[Math.floor(Math.random() * ROCK_SHAPES.length)];
           var rotation = Math.random() * 50 - 25;
           var flip = Math.random() < 0.5 ? -1 : 1;
