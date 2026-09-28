@@ -280,16 +280,6 @@ a {
   opacity: 0.1;
 }
 
-.scene[data-season="summer"] {
-  --fg: #332f1e;
-  --muted: #5c5636;
-  --line: rgba(51, 47, 30, 0.35);
-}
-
-.scene[data-season="summer"] .road-nav a,
-.scene[data-season="summer"] .final-quote p {
-  text-shadow: 0 1px 6px rgba(255, 250, 230, 0.7);
-}
 .scene[data-season="summer"] .fx-summer {
   opacity: 1;
   animation: sunPulse 6s ease-in-out infinite;
