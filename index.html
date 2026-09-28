@@ -99,11 +99,11 @@
           <stop offset="0%" stop-color="#f6ddb8"/>
           <stop offset="100%" stop-color="#d8b483"/>
         </radialGradient>
-        <linearGradient id="walkerJacket" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="walkerJacket" gradientUnits="userSpaceOnUse" x1="-13" y1="-56" x2="13" y2="-16">
           <stop offset="0%" stop-color="#e08a4a"/>
           <stop offset="100%" stop-color="#a8531f"/>
         </linearGradient>
-        <linearGradient id="walkerJacketSummer" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="walkerJacketSummer" gradientUnits="userSpaceOnUse" x1="-13" y1="-56" x2="13" y2="-16">
           <stop offset="0%" stop-color="#7ecbe0"/>
           <stop offset="100%" stop-color="#3f93ab"/>
         </linearGradient>
@@ -111,9 +111,9 @@
           <stop offset="0%" stop-color="#9a7442"/>
           <stop offset="100%" stop-color="#5f4526"/>
         </linearGradient>
-        <linearGradient id="walkerPants" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#4a4642"/>
-          <stop offset="100%" stop-color="#2a2724"/>
+        <linearGradient id="walkerPants" gradientUnits="userSpaceOnUse" x1="0" y1="-28" x2="0" y2="0">
+          <stop offset="0%" stop-color="#a08a5c"/>
+          <stop offset="100%" stop-color="#6b5a3a"/>
         </linearGradient>
         <linearGradient id="walkerHat" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#cdb47c"/>
@@ -143,6 +143,25 @@
           <circle cx="-2" cy="2.75" r="2.1" fill="currentColor"/>
           <circle cx="-3.23" cy="-1.05" r="2.1" fill="currentColor"/>
           <circle cx="0" cy="0" r="1.8" fill="#fff6da"/>
+        </g>
+        <g id="rock1">
+          <ellipse cx="0" cy="7" rx="26" ry="6" fill="#000000" opacity="0.28"/>
+          <polygon points="-23,4 -25,-7 -15,-18 -3,-21 9,-17 22,-9 25,1 18,10 4,12 -10,11" fill="#656255"/>
+          <polygon points="-15,-9 -3,-21 9,-17 3,-6 -8,-3" fill="#5f5c50"/>
+          <polygon points="-3,-21 9,-17 22,-9 12,-5 1,-9" fill="#7e7866"/>
+          <polygon points="-3,-21 9,-17 3,-6 -1,-9" fill="#948d78"/>
+        </g>
+        <g id="rock2">
+          <ellipse cx="0" cy="6" rx="24" ry="5.5" fill="#000000" opacity="0.28"/>
+          <polygon points="-19,5 -22,-5 -12,-16 2,-19 17,-13 21,-2 16,8 2,10 -8,9" fill="#5c5849"/>
+          <polygon points="-12,-16 2,-19 17,-13 8,-4 -3,-6" fill="#6b6753"/>
+          <polygon points="2,-19 17,-13 21,-2 9,-3 4,-8" fill="#8a8470"/>
+        </g>
+        <g id="rock3">
+          <ellipse cx="0" cy="5" rx="20" ry="5" fill="#000000" opacity="0.28"/>
+          <polygon points="-16,4 -17,-8 -6,-16 7,-15 16,-6 15,6 5,9 -6,8" fill="#6d6a5c"/>
+          <polygon points="-6,-16 7,-15 16,-6 6,-3 -3,-5" fill="#807a66"/>
+          <polygon points="-6,-16 -1,-6 -10,-4 -12,-10" fill="#54513f"/>
         </g>
       </defs>
 
@@ -302,10 +321,18 @@
         <g transform="translate(1450,860)"><use href="#flower" transform="scale(2.7)" style="color:#fdfaf0"/></g>
       </g>
 
+      <g id="roadRocks"></g>
+
       <g id="walkerRoot" transform="translate(800,860) scale(1)">
         <g id="walkerBack">
-          <g class="limb" id="legLeftBack"><line x1="-5" y1="-28" x2="-5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
-          <g class="limb" id="legRightBack"><line x1="5" y1="-28" x2="5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
+          <g class="limb" id="legLeftBack">
+            <line x1="-5" y1="-28" x2="-5" y2="-14" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/>
+            <g id="kneeLeftBack"><line x1="-5" y1="-14" x2="-5" y2="0" stroke="url(#walkerPants)" stroke-width="8" stroke-linecap="round"/></g>
+          </g>
+          <g class="limb" id="legRightBack">
+            <line x1="5" y1="-28" x2="5" y2="-14" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/>
+            <g id="kneeRightBack"><line x1="5" y1="-14" x2="5" y2="0" stroke="url(#walkerPants)" stroke-width="8" stroke-linecap="round"/></g>
+          </g>
           <rect class="walker-jacket-fill" x="-13" y="-56" width="26" height="28" rx="9" fill="url(#walkerJacket)"/>
           <rect x="-15" y="-42" width="30" height="9" rx="4.5" fill="url(#walkerPack)" opacity="0.85"/>
           <rect x="-13" y="-64" width="26" height="26" rx="6" fill="url(#walkerPack)"/>
@@ -318,13 +345,23 @@
           <g class="limb" id="armRightBack"><line class="walker-jacket-stroke" x1="11" y1="-50" x2="11" y2="-26" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
         </g>
         <g id="walkerFront" style="display:none">
-          <g class="limb" id="legLeftFront"><line x1="-5" y1="-28" x2="-5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
-          <g class="limb" id="legRightFront"><line x1="5" y1="-28" x2="5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
+          <g class="limb" id="legLeftFront">
+            <line x1="-5" y1="-28" x2="-5" y2="-14" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/>
+            <g id="kneeLeftFront"><line x1="-5" y1="-14" x2="-5" y2="0" stroke="url(#walkerPants)" stroke-width="8" stroke-linecap="round"/></g>
+          </g>
+          <g class="limb" id="legRightFront">
+            <line x1="5" y1="-28" x2="5" y2="-14" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/>
+            <g id="kneeRightFront"><line x1="5" y1="-14" x2="5" y2="0" stroke="url(#walkerPants)" stroke-width="8" stroke-linecap="round"/></g>
+          </g>
           <rect class="walker-jacket-fill" x="-13" y="-56" width="26" height="28" rx="9" fill="url(#walkerJacket)"/>
           <line x1="-9" y1="-56" x2="-9" y2="-38" stroke="#3a2a18" stroke-width="2" stroke-linecap="round"/>
           <line x1="9" y1="-56" x2="9" y2="-38" stroke="#3a2a18" stroke-width="2" stroke-linecap="round"/>
-          <g class="limb" id="armLeftFront"><line class="walker-jacket-stroke" x1="-11" y1="-50" x2="-11" y2="-16" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
-          <g class="limb" id="armRightFront"><line class="walker-jacket-stroke" x1="11" y1="-50" x2="11" y2="-16" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
+          <g class="limb" id="armLeftFront"><line class="walker-jacket-stroke" x1="-11" y1="-50" x2="-11" y2="-28" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
+          <g class="limb" id="armRightFront"><line class="walker-jacket-stroke" x1="11" y1="-50" x2="11" y2="-28" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
+          <g class="walker-flag" id="walkerFlag">
+            <line x1="27" y1="-66" x2="27" y2="-96" stroke="#8a6a3a" stroke-width="2" stroke-linecap="round"/>
+            <path d="M27,-96 L44,-87 L27,-78 Z" fill="#c9473a"/>
+          </g>
         </g>
         <circle id="walkerHit" cx="0" cy="-35" r="56" fill="rgba(0,0,0,0.01)" pointer-events="all"/>
       </g>
@@ -514,19 +551,39 @@
       var frontView = document.getElementById('walkerFront');
       var legLeftBack = document.getElementById('legLeftBack');
       var legRightBack = document.getElementById('legRightBack');
+      var kneeLeftBack = document.getElementById('kneeLeftBack');
+      var kneeRightBack = document.getElementById('kneeRightBack');
       var armLeftBack = document.getElementById('armLeftBack');
       var armRightBack = document.getElementById('armRightBack');
       var legLeftFront = document.getElementById('legLeftFront');
       var legRightFront = document.getElementById('legRightFront');
+      var kneeLeftFront = document.getElementById('kneeLeftFront');
+      var kneeRightFront = document.getElementById('kneeRightFront');
       var armLeftFront = document.getElementById('armLeftFront');
       var armRightFront = document.getElementById('armRightFront');
 
       var START = { x: 800, y: 860 };
       var END = { x: 800, y: 398 };
       var SPEED = 42;
-      var SWING_SPEED = 4.4;
-      var MAX_SWING = 34;
-      var BOB_HEIGHT = 3.4;
+      var SWING_SPEED = 5.4;
+      var MAX_SWING = 22;
+      var MAX_KNEE = 32;
+      var BOB_HEIGHT = 2.6;
+      var SETTLE_DURATION = 0.7;
+      var SHAKE_SPEED = 26;
+      var SHAKE_MAX = 20;
+      var KEY_SPEED = 110;
+      var ROCK_HALF_WIDTH = 30;
+      var ROCK_Y_BAND = 34;
+      var NUM_ROCKS = 6 + Math.floor(Math.random() * 3);
+      var ROCK_Y_MIN = 450;
+      var ROCK_Y_MAX = 815;
+      var roadRocksGroup = document.getElementById('roadRocks');
+      var ROCKS = [];
+      var clearedRocks = [];
+      var leftPressed = false;
+      var rightPressed = false;
+      var settleElapsed = 0;
       var SCALE_AT_START = 1.45;
       var SCALE_AT_END = 0.6;
       var MIN_Y = END.y;
@@ -561,6 +618,63 @@
         return SCALE_AT_START + (SCALE_AT_END - SCALE_AT_START) * t;
       }
 
+      var ROCK_SHAPES = ['rock1', 'rock2', 'rock3'];
+
+      function generateRocks() {
+        var rocks = [];
+        var band = (ROCK_Y_MAX - ROCK_Y_MIN) / NUM_ROCKS;
+        for (var i = 0; i < NUM_ROCKS; i++) {
+          var bandTop = ROCK_Y_MAX - (i + 1) * band;
+          var y = bandTop + Math.random() * band * 0.85;
+          var halfW = (roadRightX(y) - roadLeftX(y)) / 2;
+          var maxOffset = halfW * (0.35 + Math.random() * 0.35);
+          var x = 800 + (Math.random() * 2 - 1) * maxOffset;
+          var sizeVariance = 0.7 + Math.random() * 0.75;
+          var shape = ROCK_SHAPES[Math.floor(Math.random() * ROCK_SHAPES.length)];
+          var rotation = Math.random() * 50 - 25;
+          var flip = Math.random() < 0.5 ? -1 : 1;
+          rocks.push({ x: x, y: y, sizeVariance: sizeVariance, shape: shape, rotation: rotation, flip: flip });
+        }
+        return rocks;
+      }
+
+      function renderRocks() {
+        roadRocksGroup.innerHTML = '';
+        ROCKS.forEach(function (rock, i) {
+          var s = scaleForY(rock.y) * rock.sizeVariance;
+          var use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+          use.setAttribute('href', '#' + rock.shape);
+          use.setAttribute('data-rock', i);
+          use.setAttribute('transform',
+            'translate(' + rock.x.toFixed(1) + ',' + rock.y.toFixed(1) + ') ' +
+            'rotate(' + rock.rotation.toFixed(1) + ') ' +
+            'scale(' + (s * rock.flip).toFixed(3) + ',' + s.toFixed(3) + ')');
+          roadRocksGroup.appendChild(use);
+        });
+      }
+
+      ROCKS = generateRocks();
+      clearedRocks = ROCKS.map(function () { return false; });
+      renderRocks();
+
+      function checkRocks(x, y) {
+        for (var i = 0; i < ROCKS.length; i++) {
+          if (clearedRocks[i]) continue;
+          var rock = ROCKS[i];
+          if (y <= rock.y) {
+            clearedRocks[i] = true;
+            continue;
+          }
+          var s = scaleForY(rock.y) * rock.sizeVariance;
+          var yBand = ROCK_Y_BAND * s;
+          var halfW = ROCK_HALF_WIDTH * s;
+          if (Math.abs(y - rock.y) < yBand && Math.abs(x - rock.x) < halfW) {
+            return true;
+          }
+        }
+        return false;
+      }
+
       function setLimb(g, angle, px, py) {
         g.setAttribute('transform', 'rotate(' + angle.toFixed(1) + ',' + px + ',' + py + ')');
       }
@@ -585,10 +699,12 @@
         frontView.style.display = '';
         headBackDetail.style.display = 'none';
         headFrontDetail.style.display = '';
-        setLimb(armLeftFront, 165, -11, -50);
-        setLimb(armRightFront, -165, 11, -50);
-        setLimb(legLeftFront, -8, -5, -28);
-        setLimb(legRightFront, 8, 5, -28);
+        setLimb(armLeftFront, 135, -11, -50);
+        setLimb(armRightFront, -135, 11, -50);
+        setLimb(legLeftFront, 0, -5, -28);
+        setLimb(kneeLeftFront, 0, -5, -14);
+        setLimb(legRightFront, 0, 5, -28);
+        setLimb(kneeRightFront, 0, 5, -14);
       }
 
       function arrive() {
@@ -628,7 +744,10 @@
       function onPointerUp(evt) {
         if (evt.pointerId !== pointerId) return;
         pointerId = null;
-        if (state === 'dragging') state = 'walking';
+        if (state === 'dragging') {
+          state = 'settling';
+          settleElapsed = 0;
+        }
       }
 
       hit.addEventListener('pointerdown', onPointerDown);
@@ -636,17 +755,43 @@
       document.addEventListener('pointerup', onPointerUp);
       document.addEventListener('pointercancel', onPointerUp);
 
+      function onKeyDown(evt) {
+        if (evt.key === 'ArrowLeft') { leftPressed = true; evt.preventDefault(); }
+        else if (evt.key === 'ArrowRight') { rightPressed = true; evt.preventDefault(); }
+      }
+
+      function onKeyUp(evt) {
+        if (evt.key === 'ArrowLeft') leftPressed = false;
+        else if (evt.key === 'ArrowRight') rightPressed = false;
+      }
+
+      document.addEventListener('keydown', onKeyDown);
+      document.addEventListener('keyup', onKeyUp);
+
       function frame(t) {
         if (lastTime === null) lastTime = t;
         var dt = Math.min((t - lastTime) / 1000, 0.05);
         lastTime = t;
 
         if (state === 'walking') {
+          if (leftPressed || rightPressed) {
+            var keyStep = KEY_SPEED * dt;
+            if (leftPressed) pos.x -= keyStep;
+            if (rightPressed) pos.x += keyStep;
+            var loK = roadLeftX(pos.y) + ROAD_MARGIN;
+            var hiK = roadRightX(pos.y) - ROAD_MARGIN;
+            pos.x = clamp(pos.x, loK, hiK);
+          }
+
+          var blocked = checkRocks(pos.x, pos.y);
+
           var dx = END.x - pos.x;
           var dy = END.y - pos.y;
           var dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 6) {
+          if (!blocked && dist < 6) {
             arrive();
+          } else if (blocked) {
+            applyTransform(0);
           } else {
             var speedFactor = scaleForY(pos.y) / SCALE_AT_START;
             var step = SPEED * dt * speedFactor;
@@ -658,14 +803,31 @@
           }
         } else if (state === 'dragging') {
           phase += dt * SWING_SPEED;
+        } else if (state === 'settling') {
+          settleElapsed += dt;
+          var tNorm = clamp(settleElapsed / SETTLE_DURATION, 0, 1);
+          var decay = (1 - tNorm) * (1 - tNorm);
+          var shake = Math.sin(settleElapsed * SHAKE_SPEED) * SHAKE_MAX * decay;
+          setLimb(legLeftBack, shake, -5, -28);
+          setLimb(legRightBack, -shake, 5, -28);
+          setLimb(armLeftBack, -shake * 0.6, -11, -50);
+          setLimb(armRightBack, shake * 0.6, 11, -50);
+          setLimb(kneeLeftBack, MAX_KNEE * 0.5 * decay, -5, -14);
+          setLimb(kneeRightBack, MAX_KNEE * 0.5 * decay, 5, -14);
+          if (tNorm >= 1) {
+            state = 'walking';
+            phase = 0;
+          }
         }
 
         if (state === 'walking' || state === 'dragging') {
           var swing = Math.sin(phase) * MAX_SWING;
           setLimb(legLeftBack, swing, -5, -28);
           setLimb(legRightBack, -swing, 5, -28);
-          setLimb(armLeftBack, -swing * 0.8, -11, -50);
-          setLimb(armRightBack, swing * 0.8, 11, -50);
+          setLimb(armLeftBack, -swing * 0.55, -11, -50);
+          setLimb(armRightBack, swing * 0.55, 11, -50);
+          setLimb(kneeLeftBack, MAX_KNEE * Math.pow(Math.max(0, Math.cos(phase)), 1.6), -5, -14);
+          setLimb(kneeRightBack, MAX_KNEE * Math.pow(Math.max(0, -Math.cos(phase)), 1.6), 5, -14);
         }
 
         requestAnimationFrame(frame);
