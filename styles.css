@@ -294,6 +294,12 @@ a {
   background-color: #fff1c4;
   opacity: 0.1;
 }
+.scene[data-season="summer"] .walker-jacket-fill {
+  fill: url(#walkerJacketSummer);
+}
+.scene[data-season="summer"] .walker-jacket-stroke {
+  stroke: url(#walkerJacketSummer);
+}
 
 .scene[data-season="summer"] .fx-summer {
   opacity: 1;

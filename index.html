@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
   <script>
     try {
       if (sessionStorage.getItem('introSeen')) {
@@ -102,6 +102,10 @@
         <linearGradient id="walkerJacket" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stop-color="#e08a4a"/>
           <stop offset="100%" stop-color="#a8531f"/>
+        </linearGradient>
+        <linearGradient id="walkerJacketSummer" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#7ecbe0"/>
+          <stop offset="100%" stop-color="#3f93ab"/>
         </linearGradient>
         <linearGradient id="walkerPack" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#9a7442"/>
@@ -300,7 +304,7 @@
         <g id="walkerBack">
           <g class="limb" id="legLeftBack"><line x1="-5" y1="-28" x2="-5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
           <g class="limb" id="legRightBack"><line x1="5" y1="-28" x2="5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
-          <rect x="-13" y="-56" width="26" height="28" rx="9" fill="url(#walkerJacket)"/>
+          <rect class="walker-jacket-fill" x="-13" y="-56" width="26" height="28" rx="9" fill="url(#walkerJacket)"/>
           <rect x="-15" y="-42" width="30" height="9" rx="4.5" fill="url(#walkerPack)" opacity="0.85"/>
           <rect x="-13" y="-64" width="26" height="26" rx="6" fill="url(#walkerPack)"/>
           <rect x="-10" y="-70" width="20" height="11" rx="5" fill="url(#walkerPack)"/>
@@ -308,8 +312,8 @@
           <line x1="-12" y1="-48" x2="12" y2="-48" stroke="#3a2a18" stroke-width="1.4" opacity="0.55"/>
           <line x1="-9" y1="-68" x2="-11" y2="-50" stroke="#3a2a18" stroke-width="2.2" stroke-linecap="round"/>
           <line x1="9" y1="-68" x2="11" y2="-50" stroke="#3a2a18" stroke-width="2.2" stroke-linecap="round"/>
-          <g class="limb" id="armLeftBack"><line x1="-11" y1="-50" x2="-11" y2="-26" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
-          <g class="limb" id="armRightBack"><line x1="11" y1="-50" x2="11" y2="-26" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
+          <g class="limb" id="armLeftBack"><line class="walker-jacket-stroke" x1="-11" y1="-50" x2="-11" y2="-26" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
+          <g class="limb" id="armRightBack"><line class="walker-jacket-stroke" x1="11" y1="-50" x2="11" y2="-26" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
           <circle cx="0" cy="-66" r="11" fill="url(#walkerHead)"/>
           <ellipse cx="0" cy="-75" rx="10" ry="8" fill="url(#walkerHat)"/>
           <rect x="-1.4" y="-69" width="2.8" height="2.4" rx="1" fill="#6b5636"/>
@@ -317,11 +321,11 @@
         <g id="walkerFront" style="display:none">
           <g class="limb" id="legLeftFront"><line x1="-5" y1="-28" x2="-5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
           <g class="limb" id="legRightFront"><line x1="5" y1="-28" x2="5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
-          <rect x="-13" y="-56" width="26" height="28" rx="9" fill="url(#walkerJacket)"/>
+          <rect class="walker-jacket-fill" x="-13" y="-56" width="26" height="28" rx="9" fill="url(#walkerJacket)"/>
           <line x1="-9" y1="-56" x2="-9" y2="-38" stroke="#3a2a18" stroke-width="2" stroke-linecap="round"/>
           <line x1="9" y1="-56" x2="9" y2="-38" stroke="#3a2a18" stroke-width="2" stroke-linecap="round"/>
-          <g class="limb" id="armLeftFront"><line x1="-11" y1="-50" x2="-11" y2="-16" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
-          <g class="limb" id="armRightFront"><line x1="11" y1="-50" x2="11" y2="-16" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
+          <g class="limb" id="armLeftFront"><line class="walker-jacket-stroke" x1="-11" y1="-50" x2="-11" y2="-16" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
+          <g class="limb" id="armRightFront"><line class="walker-jacket-stroke" x1="11" y1="-50" x2="11" y2="-16" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
           <circle cx="0" cy="-66" r="11" fill="url(#walkerHead)"/>
           <ellipse cx="0" cy="-75" rx="10" ry="8" fill="url(#walkerHat)"/>
           <ellipse cx="0" cy="-71" rx="9.5" ry="2.3" fill="#7a6238"/>
