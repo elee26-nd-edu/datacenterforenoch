@@ -263,6 +263,21 @@ a {
   opacity: 1;
 }
 
+.fx-spring use {
+  transform-origin: 0 0;
+  transition: opacity 0.9s ease, scale 0.9s ease;
+  scale: 0.05;
+}
+
+.scene[data-season="spring"] .fx-spring use {
+  scale: 1;
+}
+
+.fx-spring > g:nth-child(4n+1) use { transition-delay: 0s; }
+.fx-spring > g:nth-child(4n+2) use { transition-delay: 0.12s; }
+.fx-spring > g:nth-child(4n+3) use { transition-delay: 0.24s; }
+.fx-spring > g:nth-child(4n+4) use { transition-delay: 0.36s; }
+
 .scene[data-season="summer"] svg {
   filter: saturate(1.15);
 }
@@ -286,10 +301,9 @@ a {
 }
 
 .fx-summer-leaves use {
-  transform-origin: center;
-  transform-box: fill-box;
-  transition: opacity 1s ease, scale 1s ease;
-  scale: 0.4;
+  transform-origin: 0 0;
+  transition: opacity 0.9s ease, scale 0.9s ease;
+  scale: 0.05;
 }
 
 .scene[data-season="summer"] .fx-summer-leaves {
@@ -300,10 +314,10 @@ a {
   scale: 1;
 }
 
-.fx-summer-leaves use:nth-child(4n+1) { transition-delay: 0s; }
-.fx-summer-leaves use:nth-child(4n+2) { transition-delay: 0.12s; }
-.fx-summer-leaves use:nth-child(4n+3) { transition-delay: 0.24s; }
-.fx-summer-leaves use:nth-child(4n+4) { transition-delay: 0.36s; }
+.fx-summer-leaves > g:nth-child(4n+1) use { transition-delay: 0s; }
+.fx-summer-leaves > g:nth-child(4n+2) use { transition-delay: 0.12s; }
+.fx-summer-leaves > g:nth-child(4n+3) use { transition-delay: 0.24s; }
+.fx-summer-leaves > g:nth-child(4n+4) use { transition-delay: 0.36s; }
 
 .scene[data-season="fall"] svg {
   filter: hue-rotate(-10deg) saturate(1.1) brightness(0.98);
@@ -330,6 +344,15 @@ a {
 @keyframes sunPulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.85; }
+}
+
+#walkerHit {
+  cursor: grab;
+  touch-action: none;
+}
+
+#walkerHit:active {
+  cursor: grabbing;
 }
 
 .snowfall {
