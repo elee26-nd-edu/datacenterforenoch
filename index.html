@@ -111,6 +111,10 @@
           <stop offset="0%" stop-color="#4a4642"/>
           <stop offset="100%" stop-color="#2a2724"/>
         </linearGradient>
+        <linearGradient id="walkerHat" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#cdb47c"/>
+          <stop offset="100%" stop-color="#8f7548"/>
+        </linearGradient>
 
         <g id="pine">
           <rect x="-4" y="-14" width="8" height="14" fill="currentColor"/>
@@ -297,12 +301,18 @@
           <g class="limb" id="legLeftBack"><line x1="-5" y1="-28" x2="-5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
           <g class="limb" id="legRightBack"><line x1="5" y1="-28" x2="5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
           <rect x="-13" y="-56" width="26" height="28" rx="9" fill="url(#walkerJacket)"/>
-          <rect x="-15" y="-58" width="30" height="24" rx="8" fill="url(#walkerPack)"/>
-          <line x1="-9" y1="-58" x2="-11" y2="-50" stroke="#3a2a18" stroke-width="2" stroke-linecap="round"/>
-          <line x1="9" y1="-58" x2="11" y2="-50" stroke="#3a2a18" stroke-width="2" stroke-linecap="round"/>
+          <rect x="-15" y="-42" width="30" height="9" rx="4.5" fill="url(#walkerPack)" opacity="0.85"/>
+          <rect x="-13" y="-64" width="26" height="26" rx="6" fill="url(#walkerPack)"/>
+          <rect x="-10" y="-70" width="20" height="11" rx="5" fill="url(#walkerPack)"/>
+          <line x1="-12" y1="-57" x2="12" y2="-57" stroke="#3a2a18" stroke-width="1.4" opacity="0.55"/>
+          <line x1="-12" y1="-48" x2="12" y2="-48" stroke="#3a2a18" stroke-width="1.4" opacity="0.55"/>
+          <line x1="-9" y1="-68" x2="-11" y2="-50" stroke="#3a2a18" stroke-width="2.2" stroke-linecap="round"/>
+          <line x1="9" y1="-68" x2="11" y2="-50" stroke="#3a2a18" stroke-width="2.2" stroke-linecap="round"/>
           <g class="limb" id="armLeftBack"><line x1="-11" y1="-50" x2="-11" y2="-26" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
           <g class="limb" id="armRightBack"><line x1="11" y1="-50" x2="11" y2="-26" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
           <circle cx="0" cy="-66" r="11" fill="url(#walkerHead)"/>
+          <ellipse cx="0" cy="-75" rx="10" ry="8" fill="url(#walkerHat)"/>
+          <rect x="-1.4" y="-69" width="2.8" height="2.4" rx="1" fill="#6b5636"/>
         </g>
         <g id="walkerFront" style="display:none">
           <g class="limb" id="legLeftFront"><line x1="-5" y1="-28" x2="-5" y2="0" stroke="url(#walkerPants)" stroke-width="9" stroke-linecap="round"/></g>
@@ -313,14 +323,16 @@
           <g class="limb" id="armLeftFront"><line x1="-11" y1="-50" x2="-11" y2="-16" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
           <g class="limb" id="armRightFront"><line x1="11" y1="-50" x2="11" y2="-16" stroke="url(#walkerJacket)" stroke-width="8" stroke-linecap="round"/></g>
           <circle cx="0" cy="-66" r="11" fill="url(#walkerHead)"/>
+          <ellipse cx="0" cy="-75" rx="10" ry="8" fill="url(#walkerHat)"/>
+          <ellipse cx="0" cy="-71" rx="9.5" ry="2.3" fill="#7a6238"/>
           <circle cx="-4" cy="-68" r="1.4" fill="#3a2a18"/>
           <circle cx="4" cy="-68" r="1.4" fill="#3a2a18"/>
           <path d="M -5,-61 Q 0,-57 5,-61" stroke="#3a2a18" stroke-width="1.6" fill="none" stroke-linecap="round"/>
         </g>
-        <circle id="walkerHit" cx="0" cy="-35" r="46" fill="transparent"/>
+        <circle id="walkerHit" cx="0" cy="-35" r="56" fill="rgba(0,0,0,0.01)" pointer-events="all"/>
       </g>
 
-      <rect x="0" y="0" width="1600" height="900" fill="url(#vignette)"/>
+      <rect x="0" y="0" width="1600" height="900" fill="url(#vignette)" pointer-events="none"/>
     </svg>
 
     <div class="season-overlay"></div>
@@ -344,6 +356,7 @@
       <a class="item-3" href="people.html">People <span class="num">(03)</span></a>
       <a class="item-4" href="training.html">Training <span class="num">(04)</span></a>
       <a class="item-5" href="insights.html">Insights <span class="num">(05)</span></a>
+      <a class="item-6" href="media.html">Media <span class="num">(06)</span></a>
     </nav>
   </div>
 
@@ -462,15 +475,27 @@
 
       var START = { x: 800, y: 860 };
       var END = { x: 800, y: 398 };
-      var SPEED = 105;
-      var SWING_SPEED = 6.2;
-      var MAX_SWING = 30;
-      var SCALE_AT_START = 1;
-      var SCALE_AT_END = 0.2;
+      var SPEED = 58;
+      var SWING_SPEED = 4.4;
+      var MAX_SWING = 34;
+      var BOB_HEIGHT = 3.4;
+      var SCALE_AT_START = 1.45;
+      var SCALE_AT_END = 0.6;
       var MIN_Y = END.y;
-      var MAX_Y = 890;
-      var MIN_X = 40;
-      var MAX_X = 1560;
+      var MAX_Y = 895;
+      var ROAD_TOP_Y = 380;
+      var ROAD_BOTTOM_Y = 900;
+      var ROAD_MARGIN = 16;
+
+      function roadLeftX(y) {
+        var t = clamp((ROAD_BOTTOM_Y - y) / (ROAD_BOTTOM_Y - ROAD_TOP_Y), 0, 1);
+        return 620 + 150 * t;
+      }
+
+      function roadRightX(y) {
+        var t = clamp((ROAD_BOTTOM_Y - y) / (ROAD_BOTTOM_Y - ROAD_TOP_Y), 0, 1);
+        return 980 - 150 * t;
+      }
 
       var pos = { x: START.x, y: START.y };
       var state = 'idle';
@@ -492,9 +517,10 @@
         g.setAttribute('transform', 'rotate(' + angle.toFixed(1) + ',' + px + ',' + py + ')');
       }
 
-      function applyTransform() {
+      function applyTransform(bob) {
         var s = scaleForY(pos.y);
-        root.setAttribute('transform', 'translate(' + pos.x.toFixed(1) + ',' + pos.y.toFixed(1) + ') scale(' + s.toFixed(3) + ')');
+        var y = pos.y - (bob || 0);
+        root.setAttribute('transform', 'translate(' + pos.x.toFixed(1) + ',' + y.toFixed(1) + ') scale(' + s.toFixed(3) + ')');
       }
 
       function showBack() {
@@ -537,8 +563,11 @@
       function onPointerMove(evt) {
         if (state !== 'dragging' || evt.pointerId !== pointerId) return;
         var p = svgPoint(evt);
-        pos.x = clamp(p.x, MIN_X, MAX_X);
-        pos.y = clamp(p.y, MIN_Y, MAX_Y);
+        var y = clamp(p.y, MIN_Y, MAX_Y);
+        var lo = roadLeftX(y) + ROAD_MARGIN;
+        var hi = roadRightX(y) - ROAD_MARGIN;
+        pos.x = clamp(p.x, lo, hi);
+        pos.y = y;
         applyTransform();
       }
 
@@ -569,7 +598,8 @@
             pos.x += (dx / dist) * step;
             pos.y += (dy / dist) * step;
             phase += dt * SWING_SPEED;
-            applyTransform();
+            var bob = Math.abs(Math.sin(phase)) * BOB_HEIGHT;
+            applyTransform(bob);
           }
         } else if (state === 'dragging') {
           phase += dt * SWING_SPEED;

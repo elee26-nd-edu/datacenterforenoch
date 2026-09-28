@@ -496,10 +496,11 @@ a {
 }
 
 .item-1 { left: 39.4%; top: 46%; animation-delay: 0.1s; }
-.item-2 { left: 32.5%; top: 53.5%; animation-delay: 0.25s; }
-.item-3 { left: 28.2%; top: 61.5%; animation-delay: 0.4s; }
-.item-4 { left: 65.7%; top: 53.4%; animation-delay: 0.25s; }
-.item-5 { left: 69.3%; top: 61.8%; animation-delay: 0.4s; }
+.item-2 { left: 33%; top: 54%; animation-delay: 0.25s; }
+.item-3 { left: 28%; top: 62%; animation-delay: 0.4s; }
+.item-4 { left: 60.6%; top: 46%; animation-delay: 0.1s; }
+.item-5 { left: 67%; top: 54%; animation-delay: 0.25s; }
+.item-6 { left: 72%; top: 62%; animation-delay: 0.4s; }
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -519,11 +520,12 @@ a {
     font-size: 1.05rem;
     letter-spacing: 0.04em;
   }
-  .item-1 { left: 50%; top: 40%; }
-  .item-2 { left: 50%; top: 47%; }
-  .item-3 { left: 50%; top: 54%; }
-  .item-4 { left: 50%; top: 61%; }
-  .item-5 { left: 50%; top: 68%; }
+  .item-1 { left: 50%; top: 36%; }
+  .item-2 { left: 50%; top: 43%; }
+  .item-3 { left: 50%; top: 50%; }
+  .item-4 { left: 50%; top: 57%; }
+  .item-5 { left: 50%; top: 64%; }
+  .item-6 { left: 50%; top: 71%; }
 }
 
 /* ---------- Section pages ---------- */
