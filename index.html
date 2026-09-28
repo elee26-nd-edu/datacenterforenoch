@@ -479,7 +479,7 @@
 
       var START = { x: 800, y: 860 };
       var END = { x: 800, y: 398 };
-      var SPEED = 58;
+      var SPEED = 42;
       var SWING_SPEED = 4.4;
       var MAX_SWING = 34;
       var BOB_HEIGHT = 3.4;
@@ -598,10 +598,11 @@
           if (dist < 6) {
             arrive();
           } else {
-            var step = SPEED * dt;
+            var speedFactor = scaleForY(pos.y) / SCALE_AT_START;
+            var step = SPEED * dt * speedFactor;
             pos.x += (dx / dist) * step;
             pos.y += (dy / dist) * step;
-            phase += dt * SWING_SPEED;
+            phase += dt * SWING_SPEED * speedFactor;
             var bob = Math.abs(Math.sin(phase)) * BOB_HEIGHT;
             applyTransform(bob);
           }
