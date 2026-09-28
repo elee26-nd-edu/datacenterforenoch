@@ -247,12 +247,20 @@ a {
   transition: filter 1s ease;
 }
 
+.fx {
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
 .scene[data-season="spring"] svg {
   filter: hue-rotate(55deg) saturate(1.3) brightness(1.08);
 }
 .scene[data-season="spring"] .season-overlay {
   background-color: #cdeec0;
   opacity: 0.16;
+}
+.scene[data-season="spring"] .fx-spring {
+  opacity: 1;
 }
 
 .scene[data-season="summer"] svg {
@@ -261,13 +269,20 @@ a {
 .scene[data-season="summer"] .season-overlay {
   opacity: 0;
 }
+.scene[data-season="summer"] .fx-summer {
+  opacity: 1;
+  animation: sunPulse 6s ease-in-out infinite;
+}
 
 .scene[data-season="fall"] svg {
-  filter: hue-rotate(-45deg) saturate(1.35) brightness(0.98);
+  filter: hue-rotate(-10deg) saturate(1.1) brightness(0.98);
 }
 .scene[data-season="fall"] .season-overlay {
   background-color: #c96a28;
-  opacity: 0.22;
+  opacity: 0.16;
+}
+.scene[data-season="fall"] .fx-fall {
+  opacity: 1;
 }
 
 .scene[data-season="winter"] svg {
@@ -276,6 +291,60 @@ a {
 .scene[data-season="winter"] .season-overlay {
   background-color: #d8e6f0;
   opacity: 0.3;
+}
+.scene[data-season="winter"] .fx-winter {
+  opacity: 1;
+}
+
+@keyframes sunPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.snowfall {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.scene[data-season="winter"] .snowfall {
+  opacity: 1;
+}
+
+.flake {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: var(--size, 4px);
+  height: var(--size, 4px);
+  background: #fff;
+  border-radius: 50%;
+  opacity: var(--op, 0.7);
+  animation-name: snowfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: var(--dur, 12s);
+  animation-delay: var(--delay, 0s);
+  animation-play-state: paused;
+}
+
+.scene[data-season="winter"] .flake {
+  animation-play-state: running;
+}
+
+@keyframes snowfall {
+  from { transform: translate(0, -10px); }
+  to { transform: translate(var(--drift, 20px), 940px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene[data-season="summer"] .fx-summer {
+    animation: none;
+  }
 }
 
 @media (max-width: 720px) {

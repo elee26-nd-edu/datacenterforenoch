@@ -75,6 +75,11 @@
           <stop offset="80%" stop-color="#000000" stop-opacity="0"/>
           <stop offset="100%" stop-color="#000000" stop-opacity="0.6"/>
         </linearGradient>
+        <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff3d6" stop-opacity="0.9"/>
+          <stop offset="35%" stop-color="#ffdf9e" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#ffdf9e" stop-opacity="0"/>
+        </radialGradient>
 
         <g id="pine">
           <rect x="-4" y="-14" width="8" height="14" fill="currentColor"/>
@@ -82,9 +87,31 @@
           <polygon points="-18,-40 18,-40 0,-78" fill="currentColor"/>
           <polygon points="-12,-66 12,-66 0,-100" fill="currentColor"/>
         </g>
+        <g id="leafBlob">
+          <circle cx="-11" cy="-84" r="15" fill="currentColor"/>
+          <circle cx="9" cy="-94" r="13" fill="currentColor"/>
+          <circle cx="2" cy="-74" r="14" fill="currentColor"/>
+        </g>
+        <g id="snowCap">
+          <ellipse cx="0" cy="-97" rx="9" ry="5" fill="#f4f6f8"/>
+          <ellipse cx="-9" cy="-72" rx="9" ry="5" fill="#f4f6f8"/>
+          <ellipse cx="8" cy="-52" rx="10" ry="5" fill="#f4f6f8"/>
+        </g>
+        <g id="flower">
+          <circle cx="-3.4" cy="-1" r="2.1" fill="currentColor"/>
+          <circle cx="3.4" cy="-1" r="2.1" fill="currentColor"/>
+          <circle cx="-1.8" cy="2.6" r="2.1" fill="currentColor"/>
+          <circle cx="1.8" cy="2.6" r="2.1" fill="currentColor"/>
+          <circle cx="0" cy="0.5" r="1.8" fill="#fff6da"/>
+        </g>
       </defs>
 
       <rect x="0" y="0" width="1600" height="900" fill="url(#sky)"/>
+
+      <g class="fx fx-summer">
+        <circle cx="1210" cy="165" r="150" fill="url(#sunGlow)"/>
+        <circle cx="1210" cy="165" r="44" fill="#fff3d6"/>
+      </g>
 
       <!-- far trees -->
       <use href="#pine" x="730" y="420" transform="translate(730,420) scale(0.32)" style="color:#4d545c" opacity="0.4"/>
@@ -137,10 +164,99 @@
       <use href="#pine" x="1150" y="860" transform="translate(1150,860) scale(1.55)" style="color:#070805" opacity="1"/>
       <use href="#pine" x="1450" y="860" transform="translate(1450,860) scale(1.35)" style="color:#070805" opacity="1"/>
 
+      <!-- fall foliage / winter snow caps on the nearer trees -->
+      <g class="fx fx-fall">
+        <use href="#leafBlob" transform="translate(670,540) scale(0.62)" style="color:#c9531e"/>
+        <use href="#leafBlob" transform="translate(560,540) scale(0.58)" style="color:#d98a1f"/>
+        <use href="#leafBlob" transform="translate(440,540) scale(0.5)" style="color:#a83a1f"/>
+        <use href="#leafBlob" transform="translate(930,540) scale(0.62)" style="color:#e0a53a"/>
+        <use href="#leafBlob" transform="translate(1040,540) scale(0.58)" style="color:#c9531e"/>
+        <use href="#leafBlob" transform="translate(1160,540) scale(0.5)" style="color:#d98a1f"/>
+
+        <use href="#leafBlob" transform="translate(630,620) scale(0.82)" style="color:#a83a1f"/>
+        <use href="#leafBlob" transform="translate(480,620) scale(0.72)" style="color:#e0a53a"/>
+        <use href="#leafBlob" transform="translate(300,620) scale(0.6)" style="color:#c9531e"/>
+        <use href="#leafBlob" transform="translate(970,620) scale(0.82)" style="color:#d98a1f"/>
+        <use href="#leafBlob" transform="translate(1120,620) scale(0.72)" style="color:#a83a1f"/>
+        <use href="#leafBlob" transform="translate(1300,620) scale(0.6)" style="color:#e0a53a"/>
+
+        <use href="#leafBlob" transform="translate(580,700) scale(1.05)" style="color:#c9531e"/>
+        <use href="#leafBlob" transform="translate(380,700) scale(0.9)" style="color:#d98a1f"/>
+        <use href="#leafBlob" transform="translate(150,700) scale(0.75)" style="color:#a83a1f"/>
+        <use href="#leafBlob" transform="translate(1020,700) scale(1.05)" style="color:#e0a53a"/>
+        <use href="#leafBlob" transform="translate(1220,700) scale(0.9)" style="color:#c9531e"/>
+        <use href="#leafBlob" transform="translate(1450,700) scale(0.75)" style="color:#d98a1f"/>
+
+        <use href="#leafBlob" transform="translate(520,780) scale(1.3)" style="color:#a83a1f"/>
+        <use href="#leafBlob" transform="translate(260,780) scale(1.1)" style="color:#e0a53a"/>
+        <use href="#leafBlob" transform="translate(30,780) scale(0.95)" style="color:#c9531e"/>
+        <use href="#leafBlob" transform="translate(1080,780) scale(1.3)" style="color:#d98a1f"/>
+        <use href="#leafBlob" transform="translate(1340,780) scale(1.1)" style="color:#a83a1f"/>
+        <use href="#leafBlob" transform="translate(1570,780) scale(0.95)" style="color:#e0a53a"/>
+
+        <use href="#leafBlob" transform="translate(450,860) scale(1.55)" style="color:#c9531e"/>
+        <use href="#leafBlob" transform="translate(150,860) scale(1.35)" style="color:#d98a1f"/>
+        <use href="#leafBlob" transform="translate(1150,860) scale(1.55)" style="color:#a83a1f"/>
+        <use href="#leafBlob" transform="translate(1450,860) scale(1.35)" style="color:#e0a53a"/>
+      </g>
+
+      <g class="fx fx-winter">
+        <use href="#snowCap" transform="translate(670,540) scale(0.62)"/>
+        <use href="#snowCap" transform="translate(560,540) scale(0.58)"/>
+        <use href="#snowCap" transform="translate(440,540) scale(0.5)"/>
+        <use href="#snowCap" transform="translate(930,540) scale(0.62)"/>
+        <use href="#snowCap" transform="translate(1040,540) scale(0.58)"/>
+        <use href="#snowCap" transform="translate(1160,540) scale(0.5)"/>
+
+        <use href="#snowCap" transform="translate(630,620) scale(0.82)"/>
+        <use href="#snowCap" transform="translate(480,620) scale(0.72)"/>
+        <use href="#snowCap" transform="translate(300,620) scale(0.6)"/>
+        <use href="#snowCap" transform="translate(970,620) scale(0.82)"/>
+        <use href="#snowCap" transform="translate(1120,620) scale(0.72)"/>
+        <use href="#snowCap" transform="translate(1300,620) scale(0.6)"/>
+
+        <use href="#snowCap" transform="translate(580,700) scale(1.05)"/>
+        <use href="#snowCap" transform="translate(380,700) scale(0.9)"/>
+        <use href="#snowCap" transform="translate(150,700) scale(0.75)"/>
+        <use href="#snowCap" transform="translate(1020,700) scale(1.05)"/>
+        <use href="#snowCap" transform="translate(1220,700) scale(0.9)"/>
+        <use href="#snowCap" transform="translate(1450,700) scale(0.75)"/>
+
+        <use href="#snowCap" transform="translate(520,780) scale(1.3)"/>
+        <use href="#snowCap" transform="translate(260,780) scale(1.1)"/>
+        <use href="#snowCap" transform="translate(30,780) scale(0.95)"/>
+        <use href="#snowCap" transform="translate(1080,780) scale(1.3)"/>
+        <use href="#snowCap" transform="translate(1340,780) scale(1.1)"/>
+        <use href="#snowCap" transform="translate(1570,780) scale(0.95)"/>
+
+        <use href="#snowCap" transform="translate(450,860) scale(1.55)"/>
+        <use href="#snowCap" transform="translate(150,860) scale(1.35)"/>
+        <use href="#snowCap" transform="translate(1150,860) scale(1.55)"/>
+        <use href="#snowCap" transform="translate(1450,860) scale(1.35)"/>
+      </g>
+
+      <!-- spring blossoms along the roadside -->
+      <g class="fx fx-spring">
+        <use href="#flower" transform="translate(700,560) scale(1.6)" style="color:#f4b6c2"/>
+        <use href="#flower" transform="translate(900,560) scale(1.5)" style="color:#f5d76e"/>
+        <use href="#flower" transform="translate(660,630) scale(1.7)" style="color:#fdfaf0"/>
+        <use href="#flower" transform="translate(950,630) scale(1.6)" style="color:#f4b6c2"/>
+        <use href="#flower" transform="translate(610,700) scale(1.9)" style="color:#f5d76e"/>
+        <use href="#flower" transform="translate(1000,700) scale(1.8)" style="color:#fdfaf0"/>
+        <use href="#flower" transform="translate(560,770) scale(2.1)" style="color:#f4b6c2"/>
+        <use href="#flower" transform="translate(1060,770) scale(2)" style="color:#f5d76e"/>
+        <use href="#flower" transform="translate(500,830) scale(2.3)" style="color:#fdfaf0"/>
+        <use href="#flower" transform="translate(1110,830) scale(2.2)" style="color:#f4b6c2"/>
+        <use href="#flower" transform="translate(450,880) scale(2.5)" style="color:#f5d76e"/>
+        <use href="#flower" transform="translate(1160,880) scale(2.4)" style="color:#fdfaf0"/>
+      </g>
+
       <rect x="0" y="0" width="1600" height="900" fill="url(#vignette)"/>
     </svg>
 
     <div class="season-overlay"></div>
+
+    <div class="snowfall" id="snowfall" aria-hidden="true"></div>
 
     <span class="brand">enoch</span>
 
@@ -222,6 +338,27 @@
         scene.setAttribute('data-season', season);
         seasonLabel.textContent = season.charAt(0).toUpperCase() + season.slice(1);
       });
+
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduceMotion) {
+        var snowfall = document.getElementById('snowfall');
+        var flakeCount = 45;
+        for (var i = 0; i < flakeCount; i++) {
+          var flake = document.createElement('span');
+          flake.className = 'flake';
+          var size = (Math.random() * 3 + 2).toFixed(1);
+          var duration = (Math.random() * 8 + 8).toFixed(1);
+          var delay = (Math.random() * -16).toFixed(1);
+          var drift = (Math.random() * 80 - 40).toFixed(0);
+          flake.style.left = (Math.random() * 100).toFixed(1) + '%';
+          flake.style.setProperty('--size', size + 'px');
+          flake.style.setProperty('--dur', duration + 's');
+          flake.style.setProperty('--delay', delay + 's');
+          flake.style.setProperty('--drift', drift + 'px');
+          flake.style.setProperty('--op', (Math.random() * 0.5 + 0.4).toFixed(2));
+          snowfall.appendChild(flake);
+        }
+      }
     })();
   </script>
 
