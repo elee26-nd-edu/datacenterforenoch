@@ -7,24 +7,58 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <div class="page">
     <div class="page-header">
       <a class="back-link" href="index.html">&larr; Back</a>
-      <span class="page-number">(05)</span>
     </div>
     <div class="page-content">
       <h1>Insights</h1>
-      <p>
-        Share reflections, essays, or lessons learned — the ideas
-        you want to put into the world.
+      <p class="section-lede">
+        Ideas worth putting into the world. Click a title to read it.
       </p>
-      <p class="placeholder">
-        Placeholder — replace with your essays or notes.
-      </p>
+
+      <div class="accordion" id="accordion">
+        <div class="accordion-item">
+          <button class="accordion-head">On Starting <span class="chev">+</span></button>
+          <div class="accordion-body">
+            <p>Placeholder — a short essay or reflection on beginning things.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-head">On Attention <span class="chev">+</span></button>
+          <div class="accordion-body">
+            <p>Placeholder — a note on what deserves your attention and what doesn't.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-head">On Slowness <span class="chev">+</span></button>
+          <div class="accordion-body">
+            <p>Placeholder — a reflection on taking the long way, like the road on the home page.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-head">On Craft <span class="chev">+</span></button>
+          <div class="accordion-body">
+            <p>Placeholder — lessons learned from doing the work, not just thinking about it.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <script>
+    document.querySelectorAll('.accordion-item').forEach(function (item) {
+      item.querySelector('.accordion-head').addEventListener('click', function () {
+        var wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.accordion-item').forEach(function (i) {
+          i.classList.remove('open');
+        });
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+  </script>
 </body>
 </html>

@@ -7,24 +7,48 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <div class="page">
     <div class="page-header">
       <a class="back-link" href="index.html">&larr; Back</a>
-      <span class="page-number">(03)</span>
     </div>
     <div class="page-content">
       <h1>People</h1>
-      <p>
-        Highlight people who've shaped your thinking, mentors,
-        collaborators, or communities you're part of.
+      <p class="section-lede">
+        The people who shaped how you think. Click a circle to read about them.
       </p>
-      <p class="placeholder">
-        Placeholder — replace with the people you want to feature.
-      </p>
+
+      <div class="people-grid" id="peopleGrid">
+        <button class="person" data-name="Person One" data-role="Mentor" data-note="Placeholder — how they shaped your thinking or work.">P1</button>
+        <button class="person" data-name="Person Two" data-role="Collaborator" data-note="Placeholder — what you built or learned together.">P2</button>
+        <button class="person" data-name="Person Three" data-role="Friend" data-note="Placeholder — why they matter to you.">P3</button>
+        <button class="person" data-name="Person Four" data-role="Family" data-note="Placeholder — what they taught you.">P4</button>
+        <button class="person" data-name="Person Five" data-role="Community" data-note="Placeholder — a group or circle you're part of.">P5</button>
+      </div>
+
+      <div class="person-detail" id="personDetail">
+        <p class="detail-hint">Click someone above to read about them.</p>
+      </div>
     </div>
   </div>
+
+  <script>
+    var grid = document.getElementById('peopleGrid');
+    var detail = document.getElementById('personDetail');
+    var people = grid.querySelectorAll('.person');
+
+    people.forEach(function (person) {
+      person.addEventListener('click', function () {
+        people.forEach(function (p) { p.classList.remove('active'); });
+        person.classList.add('active');
+        detail.innerHTML =
+          '<h3>' + person.dataset.name + '</h3>' +
+          '<p class="person-role">' + person.dataset.role + '</p>' +
+          '<p class="note">' + person.dataset.note + '</p>';
+      });
+    });
+  </script>
 </body>
 </html>

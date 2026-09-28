@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
   <script>
     try {
       if (sessionStorage.getItem('introSeen')) {
@@ -353,23 +353,56 @@
 
     <span class="brand">enoch</span>
 
-    <button class="season-btn" id="seasonBtn" type="button">Season <span id="seasonLabel">Summer</span></button>
-
-    <div class="final-quote" id="finalQuote">
+    <button class="final-quote" id="finalQuote" type="button" aria-haspopup="dialog">
       <p>Two roads diverged in a wood, and I&mdash;<br>
       I took the one less traveled by,<br>
       And that has made all the difference.</p>
       <p class="fq-byline">&mdash; Robert Frost</p>
-    </div>
+    </button>
+
+    <button class="season-btn" id="seasonBtn" type="button">Season <span id="seasonLabel">Summer</span></button>
 
     <nav class="road-nav">
-      <a class="item-1" href="about.html">About Me <span class="num">(01)</span></a>
-      <a class="item-2" href="reading.html">Reading <span class="num">(02)</span></a>
-      <a class="item-3" href="people.html">People <span class="num">(03)</span></a>
-      <a class="item-4" href="training.html">Training <span class="num">(04)</span></a>
-      <a class="item-5" href="insights.html">Insights <span class="num">(05)</span></a>
-      <a class="item-6" href="media.html">Media <span class="num">(06)</span></a>
+      <a class="item-1" href="about.html">About Me</a>
+      <a class="item-2" href="reading.html">Reading</a>
+      <a class="item-3" href="people.html">People</a>
+      <a class="item-4" href="training.html">Training</a>
+      <a class="item-5" href="insights.html">Insights</a>
+      <a class="item-6" href="media.html">Media</a>
     </nav>
+  </div>
+
+  <div class="poem-modal" id="poemModal" role="dialog" aria-modal="true" aria-label="The Road Not Taken, by Robert Frost">
+    <div class="poem-modal-card">
+      <button class="poem-modal-close" id="poemModalClose" type="button" aria-label="Close">&times;</button>
+      <p class="poem-title">The Road Not Taken</p>
+      <p class="poem-byline">Robert Frost</p>
+      <div class="poem-body">
+        <p class="stanza">Two roads diverged in a yellow wood,<br>
+        And sorry I could not travel both<br>
+        And be one traveler, long I stood<br>
+        And looked down one as far as I could<br>
+        To where it bent in the undergrowth;</p>
+
+        <p class="stanza">Then took the other, as just as fair,<br>
+        And having perhaps the better claim,<br>
+        Because it was grassy and wanted wear;<br>
+        Though as for that the passing there<br>
+        Had worn them really about the same,</p>
+
+        <p class="stanza">And both that morning equally lay<br>
+        In leaves no step had trodden black.<br>
+        Oh, I kept the first for another day!<br>
+        Yet knowing how way leads on to way,<br>
+        I doubted if I should ever come back.</p>
+
+        <p class="stanza">I shall be telling this with a sigh<br>
+        Somewhere ages and ages hence:<br>
+        Two roads diverged in a wood, and I&mdash;<br>
+        I took the one less traveled by,<br>
+        And that has made all the difference.</p>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -648,6 +681,31 @@
         applyTransform();
         requestAnimationFrame(frame);
       };
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var quoteBtn = document.getElementById('finalQuote');
+      var modal = document.getElementById('poemModal');
+      var closeBtn = document.getElementById('poemModalClose');
+
+      function openModal() {
+        modal.classList.add('open');
+      }
+
+      function closeModal() {
+        modal.classList.remove('open');
+      }
+
+      quoteBtn.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeModal();
+      });
     })();
   </script>
 

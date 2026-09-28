@@ -7,24 +7,60 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <div class="page">
     <div class="page-header">
       <a class="back-link" href="index.html">&larr; Back</a>
-      <span class="page-number">(06)</span>
     </div>
     <div class="page-content">
       <h1>Media</h1>
-      <p>
-        Share photos, videos, or press — the moments and coverage
-        worth showing.
+      <p class="section-lede">
+        Moments and coverage worth showing. Click a tile to open it.
       </p>
-      <p class="placeholder">
-        Placeholder — replace with your media.
-      </p>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <button class="gallery-tile" data-caption="Placeholder — caption for this photo or video.">Photo One</button>
+        <button class="gallery-tile" data-caption="Placeholder — caption for this piece.">Photo Two</button>
+        <button class="gallery-tile" data-caption="Placeholder — caption for this piece.">Video One</button>
+        <button class="gallery-tile" data-caption="Placeholder — caption for this piece.">Press</button>
+        <button class="gallery-tile" data-caption="Placeholder — caption for this piece.">Photo Three</button>
+        <button class="gallery-tile" data-caption="Placeholder — caption for this piece.">Photo Four</button>
+      </div>
     </div>
   </div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-card">
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close">&times;</button>
+      <div class="lightbox-media" id="lightboxMedia">Media</div>
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <script>
+    var lightbox = document.getElementById('lightbox');
+    var media = document.getElementById('lightboxMedia');
+    var caption = document.getElementById('lightboxCaption');
+
+    document.querySelectorAll('.gallery-tile').forEach(function (tile) {
+      tile.addEventListener('click', function () {
+        media.textContent = tile.textContent;
+        caption.textContent = tile.dataset.caption;
+        lightbox.classList.add('open');
+      });
+    });
+
+    document.getElementById('lightboxClose').addEventListener('click', function () {
+      lightbox.classList.remove('open');
+    });
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) lightbox.classList.remove('open');
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') lightbox.classList.remove('open');
+    });
+  </script>
 </body>
 </html>

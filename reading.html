@@ -7,24 +7,52 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <div class="page">
     <div class="page-header">
       <a class="back-link" href="index.html">&larr; Back</a>
-      <span class="page-number">(02)</span>
     </div>
     <div class="page-content">
       <h1>Reading</h1>
-      <p>
-        Share books, articles, or ideas you've been reading and what
-        you took from them.
+      <p class="section-lede">
+        A shelf, not a list. Pick a book to see what's inside.
       </p>
-      <p class="placeholder">
-        Placeholder — replace with your reading list or notes.
-      </p>
+
+      <div class="shelf-wrap">
+        <div class="shelf" id="shelf">
+          <button class="book" style="height:150px; background:#8a5a3c;" data-title="Book Title One" data-author="Author Name" data-note="Placeholder — what this book was about and why it stuck with you.">Book One</button>
+          <button class="book" style="height:180px; background:#4a5a4a;" data-title="Book Title Two" data-author="Author Name" data-note="Placeholder — a favorite idea or line from this one.">Book Two</button>
+          <button class="book" style="height:130px; background:#5c4a6e;" data-title="Book Title Three" data-author="Author Name" data-note="Placeholder — how this book changed how you think.">Book Three</button>
+          <button class="book" style="height:165px; background:#a8531f;" data-title="Book Title Four" data-author="Author Name" data-note="Placeholder — who you'd recommend this to.">Book Four</button>
+          <button class="book" style="height:145px; background:#3a5a6a;" data-title="Book Title Five" data-author="Author Name" data-note="Placeholder — a note on when you read it.">Book Five</button>
+          <button class="book" style="height:175px; background:#6e5a3a;" data-title="Book Title Six" data-author="Author Name" data-note="Placeholder — what you're taking from it now.">Book Six</button>
+        </div>
+        <div class="shelf-ledge"></div>
+
+        <div class="book-detail" id="bookDetail">
+          <p class="detail-hint">Click a book on the shelf to read your notes.</p>
+        </div>
+      </div>
     </div>
   </div>
+
+  <script>
+    var shelf = document.getElementById('shelf');
+    var detail = document.getElementById('bookDetail');
+    var books = shelf.querySelectorAll('.book');
+
+    books.forEach(function (book) {
+      book.addEventListener('click', function () {
+        books.forEach(function (b) { b.classList.remove('active'); });
+        book.classList.add('active');
+        detail.innerHTML =
+          '<h3>' + book.dataset.title + '</h3>' +
+          '<p class="book-author">' + book.dataset.author + '</p>' +
+          '<p class="note">' + book.dataset.note + '</p>';
+      });
+    });
+  </script>
 </body>
 </html>

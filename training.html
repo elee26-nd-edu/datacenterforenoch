@@ -7,24 +7,61 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <div class="page">
     <div class="page-header">
       <a class="back-link" href="index.html">&larr; Back</a>
-      <span class="page-number">(04)</span>
     </div>
     <div class="page-content">
       <h1>Training</h1>
-      <p>
-        Document your training routine, discipline, or skills you're
-        actively building.
+      <p class="section-lede">
+        What you're actively building. Click a focus area for the story behind the number.
       </p>
-      <p class="placeholder">
-        Placeholder — replace with your training focus or progress.
-      </p>
+
+      <div class="training-list" id="trainingList">
+        <button class="training-item" data-note="Placeholder — what strength training looks like for you right now.">
+          <div class="training-row"><span>Strength</span><span class="pct">65%</span></div>
+          <div class="bar"><div class="bar-fill" style="--pct:65%"></div></div>
+        </button>
+        <button class="training-item" data-note="Placeholder — your current endurance goal and how you're tracking it.">
+          <div class="training-row"><span>Endurance</span><span class="pct">40%</span></div>
+          <div class="bar"><div class="bar-fill" style="--pct:40%"></div></div>
+        </button>
+        <button class="training-item" data-note="Placeholder — mobility work or recovery habits you're building.">
+          <div class="training-row"><span>Mobility</span><span class="pct">55%</span></div>
+          <div class="bar"><div class="bar-fill" style="--pct:55%"></div></div>
+        </button>
+        <button class="training-item" data-note="Placeholder — the habit or discipline you're most proud of lately.">
+          <div class="training-row"><span>Discipline</span><span class="pct">78%</span></div>
+          <div class="bar"><div class="bar-fill" style="--pct:78%"></div></div>
+        </button>
+      </div>
+
+      <div class="training-detail" id="trainingDetail">
+        <p class="detail-hint">Click a focus area above for notes.</p>
+      </div>
     </div>
   </div>
+
+  <script>
+    var items = document.querySelectorAll('.training-item');
+    var detail = document.getElementById('trainingDetail');
+
+    requestAnimationFrame(function () {
+      setTimeout(function () {
+        document.querySelectorAll('.bar-fill').forEach(function (bar) {
+          bar.classList.add('filled');
+        });
+      }, 150);
+    });
+
+    items.forEach(function (item) {
+      item.addEventListener('click', function () {
+        detail.innerHTML = '<p>' + item.dataset.note + '</p>';
+      });
+    });
+  </script>
 </body>
 </html>
