@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
   <script>
     try {
       if (sessionStorage.getItem('introSeen')) {
@@ -399,6 +399,8 @@
 
     <button class="season-btn" id="seasonBtn" type="button">Season <span id="seasonLabel">Summer</span></button>
 
+    <p class="road-message" id="roadMessage">I need your help to make it to the end of the road.</p>
+
     <nav class="road-nav">
       <a class="item-1" href="about.html">About Me</a>
       <a class="item-2" href="reading.html">Reading</a>
@@ -580,7 +582,6 @@
       var ROCK_Y_MAX = 815;
       var roadRocksGroup = document.getElementById('roadRocks');
       var ROCKS = [];
-      var clearedRocks = [];
       var leftPressed = false;
       var rightPressed = false;
       var settleElapsed = 0;
@@ -660,17 +661,16 @@
       }
 
       ROCKS = generateRocks();
-      clearedRocks = ROCKS.map(function () { return false; });
       renderRocks();
 
       function checkRocks(x, y) {
         for (var i = 0; i < ROCKS.length; i++) {
-          if (clearedRocks[i]) continue;
           var rock = ROCKS[i];
-          if (y <= rock.y) {
-            clearedRocks[i] = true;
-            continue;
-          }
+          // Only a rock the character hasn't reached yet (in this direction of
+          // travel) can block. If the character is dragged back down past a
+          // rock it had already cleared, y > rock.y becomes true again and it
+          // can block a second time, instead of staying cleared forever.
+          if (y <= rock.y) continue;
           var s = scaleForY(rock.y) * rock.sizeVariance;
           var yBand = ROCK_Y_BAND * s;
           var halfW = ROCK_HALF_WIDTH * s;
