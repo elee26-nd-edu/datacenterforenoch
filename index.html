@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=11">
   <script>
     try {
       if (sessionStorage.getItem('introSeen')) {
@@ -409,6 +409,15 @@
       <a class="item-5" href="insights.html">Insights</a>
       <a class="item-6" href="media.html">Media</a>
     </nav>
+
+    <div class="key-hint" id="keyHint" aria-hidden="true">
+      <span class="key key-left">
+        <svg viewBox="0 0 24 24"><path d="M18 12H6M6 12l7-7M6 12l7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="key key-right">
+        <svg viewBox="0 0 24 24"><path d="M6 12h12M18 12l-7-7M18 12l-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
   </div>
 
   <div class="poem-modal" id="poemModal" role="dialog" aria-modal="true" aria-label="The Road Not Taken, by Robert Frost">

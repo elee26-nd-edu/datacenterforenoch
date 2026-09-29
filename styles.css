@@ -259,6 +259,55 @@ a {
   }
 }
 
+.key-hint {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.key-hint .key {
+  position: absolute;
+  bottom: 14%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--muted);
+  background: rgba(0, 0, 0, 0.25);
+  animation: fadeIn 1.6s ease 1s both;
+}
+
+.key-hint .key-left {
+  left: 30%;
+}
+
+.key-hint .key-right {
+  right: 30%;
+}
+
+.key-hint .key svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 640px) {
+  .key-hint .key {
+    bottom: 8%;
+    width: 24px;
+    height: 24px;
+  }
+  .key-hint .key-left {
+    left: 12%;
+  }
+  .key-hint .key-right {
+    right: 12%;
+  }
+}
+
 .season-overlay {
   position: absolute;
   inset: 0;
