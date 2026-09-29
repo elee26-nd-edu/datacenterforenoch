@@ -907,9 +907,14 @@ a {
   margin: 0 auto;
 }
 
+.people-grid.focused {
+  gap: 0;
+}
+
 .person {
   width: 76px;
   height: 76px;
+  flex-shrink: 0;
   border-radius: 50%;
   border: 1px solid var(--line);
   background: #14140f;
@@ -918,12 +923,61 @@ a {
   font-size: 1.1rem;
   letter-spacing: 0.05em;
   cursor: pointer;
-  transition: transform 0.25s ease, border-color 0.25s ease;
+  transition: width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), height 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+    font-size 0.4s ease, transform 0.25s ease, border-color 0.25s ease, box-shadow 0.35s ease,
+    opacity 0.3s ease, margin 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  padding: 0;
+  overflow: hidden;
+  position: relative;
 }
 
-.person:hover, .person.active {
-  transform: translateY(-4px);
+.people-grid.focused .person:not(.active) {
+  width: 0;
+  height: 0;
+  min-width: 0;
+  border-width: 0;
+  opacity: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* When returning to the full grid, snap every other circle straight back to
+   its normal size/position (no animated width/height, which is what causes
+   flex-wrap to reshuffle everyone mid-transition) and only fade them back
+   in. The previously-enlarged circle still shrinks smoothly on its own. */
+.people-grid.snap .person:not(.active) {
+  transition: opacity 0.3s ease;
+}
+
+.person.person-photo {
+  border: none;
+  background: none;
+}
+
+.person.person-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+  transform: scale(1.35);
+}
+
+.person:not(.active):hover {
+  width: 130px;
+  height: 130px;
+  font-size: 1.9rem;
   border-color: var(--fg);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  z-index: 2;
+}
+
+.person.active {
+  width: 304px;
+  height: 304px;
+  font-size: 4.4rem;
+  border-color: var(--fg);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
 }
 
 .person-detail {
@@ -951,6 +1005,21 @@ a {
   margin: 0;
   color: var(--muted);
   line-height: 1.75;
+}
+
+.person-detail .detail-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.person-detail .detail-link:hover {
+  color: var(--fg);
+  border-color: var(--fg);
 }
 
 /* Training */
@@ -1200,5 +1269,10 @@ a {
     width: 64px;
     height: 64px;
     font-size: 0.95rem;
+  }
+  .person.active {
+    width: 220px;
+    height: 220px;
+    font-size: 3.2rem;
   }
 }
