@@ -282,11 +282,11 @@ a {
 }
 
 .key-hint .key-left {
-  left: 30%;
+  left: 37%;
 }
 
 .key-hint .key-right {
-  right: 30%;
+  right: 37%;
 }
 
 .key-hint .key svg {
@@ -301,10 +301,10 @@ a {
     height: 24px;
   }
   .key-hint .key-left {
-    left: 12%;
+    left: 18%;
   }
   .key-hint .key-right {
-    right: 12%;
+    right: 18%;
   }
 }
 
