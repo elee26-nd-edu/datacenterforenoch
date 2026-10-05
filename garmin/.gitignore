@@ -1,0 +1,5 @@
+# Garmin pipeline: raw data, GPS files, and the local venv never get committed.
+# Only ../data/training.enc.json (encrypted) is published.
+.venv/
+data/
+__pycache__/

@@ -4,64 +4,132 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Training — Enoch</title>
+  <meta name="robots" content="noindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=19">
+  <link rel="stylesheet" href="training.css?v=1">
 </head>
 <body>
-  <div class="page">
+  <div class="page tr">
     <div class="page-header">
       <a class="back-link" href="index.html">&larr; Back</a>
+      <div class="header-actions">
+        <button class="tr-btn" id="customizeBtn" type="button" hidden>Customize</button>
+        <button class="tr-btn" id="lockBtn" type="button" hidden>Lock</button>
+      </div>
     </div>
+
     <div class="page-content">
       <h1>Training</h1>
-      <p class="section-lede">
-        What you're actively building. Click a focus area for the story behind the number.
+      <p class="section-lede" id="lede">
+        Training, recovery and sleep, pulled from my Garmin and read against the next race.
       </p>
 
-      <div class="training-list" id="trainingList">
-        <button class="training-item" data-note="Placeholder — what strength training looks like for you right now.">
-          <div class="training-row"><span>Strength</span><span class="pct">65%</span></div>
-          <div class="bar"><div class="bar-fill" style="--pct:65%"></div></div>
-        </button>
-        <button class="training-item" data-note="Placeholder — your current endurance goal and how you're tracking it.">
-          <div class="training-row"><span>Endurance</span><span class="pct">40%</span></div>
-          <div class="bar"><div class="bar-fill" style="--pct:40%"></div></div>
-        </button>
-        <button class="training-item" data-note="Placeholder — mobility work or recovery habits you're building.">
-          <div class="training-row"><span>Mobility</span><span class="pct">55%</span></div>
-          <div class="bar"><div class="bar-fill" style="--pct:55%"></div></div>
-        </button>
-        <button class="training-item" data-note="Placeholder — the habit or discipline you're most proud of lately.">
-          <div class="training-row"><span>Discipline</span><span class="pct">78%</span></div>
-          <div class="bar"><div class="bar-fill" style="--pct:78%"></div></div>
-        </button>
-      </div>
+      <!-- Locked state -->
+      <section class="lock" id="lock">
+        <svg class="lock-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <rect x="11" y="21" width="26" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M16 21v-5a8 8 0 0 1 16 0v5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="24" cy="30" r="2" fill="currentColor"/>
+        </svg>
+        <h2>Private</h2>
+        <p>The health data on this page is encrypted. Enter the passcode to unlock it in your browser.</p>
+        <form class="lock-form" id="lockForm" autocomplete="off">
+          <input class="tr-input" id="passInput" type="password" placeholder="Passcode" aria-label="Passcode" autocomplete="current-password">
+          <label class="tr-check"><input type="checkbox" id="rememberInput"> Remember on this device</label>
+          <button class="tr-btn primary" type="submit" id="unlockBtn">Unlock</button>
+          <div class="lock-error" id="lockError" role="alert"></div>
+        </form>
+      </section>
 
-      <div class="training-detail" id="trainingDetail">
-        <p class="detail-hint">Click a focus area above for notes.</p>
+      <!-- Unlocked dashboard -->
+      <div id="app" hidden>
+        <section class="goal" id="goal"></section>
+
+        <div class="toolbar">
+          <div class="tabs" role="tablist" id="tabs">
+            <button class="tab" role="tab" data-tab="overview">Overview</button>
+            <button class="tab" role="tab" data-tab="race">Race</button>
+            <button class="tab" role="tab" data-tab="training">Training</button>
+            <button class="tab" role="tab" data-tab="recovery">Recovery</button>
+            <button class="tab" role="tab" data-tab="sleep">Sleep</button>
+            <button class="tab" role="tab" data-tab="runs">Runs</button>
+          </div>
+          <div class="controls">
+            <div class="seg" id="rangeSeg" role="group" aria-label="Date range">
+              <button type="button" data-range="14">14d</button>
+              <button type="button" data-range="30">30d</button>
+              <button type="button" data-range="0">All</button>
+            </div>
+            <div class="seg" id="unitSeg" role="group" aria-label="Units">
+              <button type="button" data-units="mi">mi</button>
+              <button type="button" data-units="km">km</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="view"></div>
+        <p class="footnote" id="footnote"></p>
       </div>
     </div>
   </div>
 
-  <script>
-    var items = document.querySelectorAll('.training-item');
-    var detail = document.getElementById('trainingDetail');
+  <!-- Customize drawer -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="customizeDrawer" aria-label="Customize panels" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>Customize</h3>
+      <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <div class="toggle-list" id="toggleList"></div>
+      <div style="margin-top:22px"><button class="tr-btn" type="button" id="resetPanels">Show everything</button></div>
+    </div>
+  </aside>
 
-    requestAnimationFrame(function () {
-      setTimeout(function () {
-        document.querySelectorAll('.bar-fill').forEach(function (bar) {
-          bar.classList.add('filled');
-        });
-      }, 150);
-    });
+  <!-- Coach drawer -->
+  <button class="coach-fab" id="coachFab" type="button" hidden>
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h12v8H6l-3 3v-3H2z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+    Ask coach
+  </button>
+  <aside class="drawer" id="coachDrawer" aria-label="AI coach" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>Coach</h3>
+      <div class="panel-tools">
+        <button class="icon-btn" type="button" id="coachSettingsBtn" aria-label="Coach settings" title="Settings">&#9881;</button>
+        <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
+      </div>
+    </div>
+    <div class="coach-settings" id="coachSettings" hidden>
+      <p>The coach runs on Claude through your own Anthropic API key. The key is stored only in this browser and is sent only to Anthropic.</p>
+      <div class="field">
+        <label for="apiKeyInput">Anthropic API key</label>
+        <input class="tr-input left" id="apiKeyInput" type="password" placeholder="sk-ant-…" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="modelSelect">Model</label>
+        <select class="tr-input left" id="modelSelect">
+          <option value="claude-opus-5-5">Claude Opus 5.5 — deepest analysis</option>
+          <option value="claude-sonnet-5-5">Claude Sonnet 5.5 — faster, cheaper</option>
+        </select>
+      </div>
+      <div class="form-row" style="margin:0">
+        <button class="tr-btn primary" type="button" id="saveKeyBtn">Save</button>
+        <button class="tr-btn" type="button" id="forgetKeyBtn">Forget key</button>
+        <button class="tr-btn" type="button" id="clearChatBtn">Clear chat</button>
+      </div>
+    </div>
+    <div class="drawer-body"><div class="chat" id="chat"></div></div>
+    <form class="composer" id="composer">
+      <textarea id="chatInput" rows="1" placeholder="Ask about your training, recovery or race…" aria-label="Message"></textarea>
+      <button class="tr-btn primary" type="submit" id="sendBtn">Send</button>
+    </form>
+  </aside>
 
-    items.forEach(function (item) {
-      item.addEventListener('click', function () {
-        detail.innerHTML = '<p>' + item.dataset.note + '</p>';
-      });
-    });
-  </script>
+  <div class="tt" id="tt" role="tooltip"></div>
+
+  <script src="training.js?v=1"></script>
 </body>
 </html>

@@ -1,0 +1,4 @@
+# Only the encrypted training payload is published from data/.
+data/*
+!data/training.enc.json
+*.fit
