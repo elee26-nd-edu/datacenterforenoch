@@ -98,7 +98,12 @@
   }
 
   function goal() {
-    var g = Object.assign({}, D.goal, store.get('goal', {}));
+    var o = store.get('goal', {});
+    // An override applies only to the race it was made for. When the synced goal moves on to the next
+    // race, drop it. (Overrides saved before this check have no "base"; they're stale if dated before the new goal.)
+    var base = D.goal.date + '|' + D.goal.name;
+    if (o && (o.base ? o.base !== base : (o.date && o.date < D.goal.date))) { store.del('goal'); o = {}; }
+    var g = Object.assign({}, D.goal, o);
     g.distance_km = +g.distance_km || 42.195;
     return g;
   }
@@ -535,6 +540,7 @@
     $('#goalForm').addEventListener('submit', function (e) {
       e.preventDefault();
       store.set('goal', {
+        base: D.goal.date + '|' + D.goal.name,
         name: $('#gName').value.trim() || 'Next race',
         date: $('#gDate').value || D.goal.date,
         distance_km: +$('#gDist').value,
@@ -793,7 +799,7 @@
         '<div class="table-wrap"><table><thead><tr><th>Split</th><th class="num">Pace /' + units() + '</th><th class="num">Clock</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
         '<ul class="notes" style="margin-top:16px">' +
         '<li><b>First ' + (isMarathon() ? '10 km' : 'third') + ':</b> heart rate at or under ' + hr1 + ' bpm. If it\'s higher at goal pace, ease off — it\'s early.</li>' +
-        '<li><b>Middle:</b> ' + hr1 + '–' + hr2 + ' bpm is your marathon-effort band (90–94% of your ' + lthr + ' bpm threshold).</li>' +
+        '<li><b>Middle:</b> ' + hr1 + '–' + hr2 + ' bpm is your ' + (isMarathon() ? 'marathon' : 'steady') + '-effort band (90–94% of your ' + lthr + ' bpm threshold).</li>' +
         '<li><b>Final ' + (isMarathon() ? '10 km' : 'third') + ':</b> let heart rate rise and run by feel.</li></ul>',
       mount: function () {
         bindSeg(panelEl('race-pace'), 'strategy', function (v) { store.set('strategy', v); renderView(); });
@@ -1582,20 +1588,20 @@
     return content.filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('');
   }
 
-  var STARTERS = [
-    'Am I ready for Chicago? Be honest.',
+  function starters() { return [
+    'Am I ready for ' + goal().name + '? Be honest.',
     'What pace should I start at, and when should I push?',
     'How should I spend the next 7 days?',
     'Why is my HRV down, and what do I do about it?',
     'Build my race-day fuelling plan.',
     'Which of my long runs went best and why?'
-  ];
+  ]; }
 
   function renderChat() {
     if (!chatLog.length) {
       chatEl.innerHTML = '<div class="chat-empty"><p>Ask anything about your training, recovery, sleep or ' + esc(D ? goal().name : 'race') +
         '. The coach reads every number on this page.</p>' + (getKey() ? '' : '<p class="amber">Add your Anthropic API key in settings (⚙) to start.</p>') +
-        '<div class="chips">' + STARTERS.map(function (s) { return '<button class="chip" type="button">' + esc(s) + '</button>'; }).join('') + '</div></div>';
+        '<div class="chips">' + starters().map(function (s) { return '<button class="chip" type="button">' + esc(s) + '</button>'; }).join('') + '</div></div>';
       $all('.chip', chatEl).forEach(function (c) { c.addEventListener('click', function () { send(c.textContent); }); });
       return;
     }

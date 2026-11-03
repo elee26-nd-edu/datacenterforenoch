@@ -14,6 +14,7 @@ import base64
 import getpass
 import json
 import os
+import re
 import secrets
 import statistics as st
 from datetime import date, datetime, timedelta, timezone
@@ -37,6 +38,54 @@ DEFAULT_GOAL = {
     "distance_km": 42.195,
     "target_s": None,  # None = use Garmin's prediction
 }
+
+STANDARD_KM = [5, 10, 21.0975, 42.195]  # distances the page labels and has Garmin predictions for
+
+
+def event_distance_km(ev):
+    """Race distance in km from the calendar's distance target, else guessed from the title."""
+    km = (ev.get("distance_m") or 0) / 1000
+    if not km:
+        t = ev.get("title", "").lower()
+        if re.search(r"half[\s-]*marathon", t):
+            km = 21.0975
+        elif "marathon" in t:
+            km = 42.195
+        elif re.search(r"(?<!\d)10\s?k\b|10\s?km\b", t):
+            km = 10
+        elif re.search(r"(?<!\d)5\s?k\b|5\s?km\b", t):
+            km = 5
+    if not km:
+        return None
+    for s in STANDARD_KM:  # 21.082 km on a certified half is still "the half"
+        if abs(km - s) / s < 0.01:
+            return s
+    return round(km, 2)
+
+
+NON_RUN = re.compile(r"\b(bike|biking|cycl\w*|ride|swim\w*|triathlon|duathlon|ski\w*|row\w*|paddle|kayak)\b", re.I)
+
+
+def pick_goal(events, today):
+    """Next planned race on the Garmin calendar (today counts); else the most recent one; else DEFAULT_GOAL."""
+    races = []
+    for ev in events:
+        km = event_distance_km(ev)
+        # Garmin's own "race" flag is unreliable (the Chicago Marathon wasn't set), so accept any
+        # calendar event with a run distance and just skip ones that are clearly another sport.
+        if km and not NON_RUN.search(ev.get("title", "")):
+            races.append({
+                "name": ev["title"], "date": ev["date"], "distance_km": km, "target_s": None,
+                "source": "garmin", "start_time": ev.get("start_time"), "url": ev.get("url"),
+            })
+    races.sort(key=lambda r: r["date"])
+    upcoming = [r for r in races if r["date"] >= today.isoformat()]
+    if upcoming:
+        return upcoming[0]
+    if races:
+        return races[-1]
+    return DEFAULT_GOAL
+
 
 RUN_TYPES = {"running", "treadmill_running", "trail_running", "track_running"}
 # Friel-style zones as fractions of lactate threshold HR
@@ -309,12 +358,43 @@ def fmt_hm(minutes):
 
 
 def fmt_time(s):
+    if not s:
+        return "—"
     s = int(s)
     return f"{s // 3600}:{s % 3600 // 60:02d}:{s % 60:02d}"
 
 
-def insights(daily, acts, wk, athlete, preds):
+TAPER_PCT = {"marathon": "30–40%", "half": "40–50%", "short": "50–60%"}  # race-week volume as % of peak
+
+
+def dist_label(km):
+    return {5: "5K", 10: "10K", 21.0975: "half marathon", 42.195: "marathon"}.get(km, f"{km:g} km")
+
+
+def race_context(goal, today):
+    """Everything the advice text needs to know about the target race."""
+    d = date.fromisoformat(goal["date"])
+    km = goal["distance_km"]
+    return {
+        "name": goal["name"],
+        "km": km,
+        "label": dist_label(km),
+        "upcoming": d >= today,
+        "weekday": d.strftime("%A"),
+        "one_before": (d - timedelta(days=1)).strftime("%A"),
+        "two_before": (d - timedelta(days=2)).strftime("%A"),
+        "size": "marathon" if km >= 40 else "half" if km >= 15 else "short",
+    }
+
+
+def insights(daily, acts, wk, athlete, preds, goal):
     out = []
+    rc = race_context(goal, date.today())
+    goal_key = {5: "5k", 10: "10k", 21.0975: "half", 42.195: "marathon"}.get(goal["distance_km"])
+    goal_pred = preds.get(goal_key)
+    others = ", ".join(f"{label} {fmt_time(preds.get(key))}"
+                       for key, label in (("marathon", "marathon"), ("half", "half"), ("10k", "10K"))
+                       if key != goal_key and preds.get(key))
     sleep = [r["sleep_min"] for r in daily if r["sleep_min"]]
     last7 = [r for r in daily[-7:]]
     s7 = mean([r["sleep_min"] for r in last7])
@@ -324,8 +404,11 @@ def insights(daily, acts, wk, athlete, preds):
         "area": "Sleep",
         "title": f"Sleeping {fmt_hm(s7)} a night this week" if s7 else "Sleep",
         "text": f"{short} of {len(sleep)} tracked nights were under 6 hours (average {fmt_hm(mean(sleep))}). "
-                "Sleep is the single biggest lever left before race day — aim for 8+ hours in bed every night this week, "
-                "especially the two nights before the race (Friday matters more than Saturday).",
+                + (f"Sleep is the single biggest lever left before race day — aim for 8+ hours in bed every night this week, "
+                   f"especially the two nights before the race ({rc['two_before']} matters more than {rc['one_before']}, "
+                   "since pre-race nerves usually cost you the last night)."
+                   if rc["upcoming"] else
+                   "Sleep is the single biggest lever for recovery and for the next block — aim for 8+ hours in bed every night."),
     })
 
     # readiness after short vs long nights
@@ -352,7 +435,9 @@ def insights(daily, acts, wk, athlete, preds):
             "title": f"Overnight HRV {'down' if change < 0 else 'up'} {abs(change):.0f}% vs your first two weeks",
             "text": f"7-night average {late:.0f} ms vs {early:.0f} ms early on; Garmin status is "
                     f"{(daily[-1]['hrv_status'] or 'n/a').lower()}. A falling HRV with stable training load usually means "
-                    "accumulated fatigue or under-recovery — the taper plus more sleep should bring it back up before Sunday.",
+                    "accumulated fatigue or under-recovery — "
+                    + ("easing the load plus more sleep should bring it back up before race day."
+                       if rc["upcoming"] else "easier days plus more sleep should bring it back up."),
         })
 
     rhr = [r["rhr"] for r in daily if r["rhr"]]
@@ -392,7 +477,9 @@ def insights(daily, acts, wk, athlete, preds):
             "area": "Durability",
             "title": "Aerobic decoupling on long runs",
             "text": f"{txt}. Under 5% means pace held steady for the heart-rate cost through the second half. "
-                    "Higher numbers on hard long runs are expected; on the race, start conservatively so drift stays small until 30 km.",
+                    "Higher numbers on hard long runs are expected; "
+                    + (f"in the {rc['label']}, start conservatively so drift stays small until {round(rc['km'] * 0.7)} km."
+                       if rc["km"] >= 15 else "keep the opening kilometres controlled so drift stays small."),
         })
 
     if len(wk) >= 3:
@@ -402,7 +489,10 @@ def insights(daily, acts, wk, athlete, preds):
             "level": "info", "area": "Taper",
             "title": f"Peak week {peak['run_km']:.0f} km ({peak['week']}); last week {last['run_km']:.0f} km",
             "text": f"Acute load is {daily[-1]['acute']} vs chronic {daily[-1]['chronic']} (ratio {daily[-1]['acwr']}). "
-                    "For race week, cut volume to roughly 30–40% of peak but keep a little marathon-pace running so your legs stay sharp.",
+                    + (f"For race week, cut volume to roughly {TAPER_PCT[rc['size']]} "
+                       f"of peak but keep a little {rc['label'].replace(' ', '-')}-pace running so your legs stay sharp."
+                       if rc["upcoming"] else
+                       "Rebuild volume gradually after a race — roughly a 10% rise a week keeps the load ratio in a safe range."),
         })
 
     vo2 = [(r["date"], r["vo2max"]) for r in daily if r["vo2max"]]
@@ -410,18 +500,35 @@ def insights(daily, acts, wk, athlete, preds):
         out.append({
             "level": "good" if vo2[-1][1] >= vo2[0][1] else "warn", "area": "Fitness",
             "title": f"VO₂ max {vo2[0][1]:.1f} → {vo2[-1][1]:.1f}",
-            "text": f"Fitness kept improving through the block. Garmin's marathon prediction is {fmt_time(preds['marathon'])} "
-                    f"(half {fmt_time(preds['half'])}, 10K {fmt_time(preds['10k'])}). Fitness age {athlete.get('fitness_age')} "
-                    f"vs actual age {athlete.get('age')}.",
+            "text": ("Fitness kept improving through this stretch. " if vo2[-1][1] >= vo2[0][1] else
+                     "VO₂ max has slipped across this stretch — normal after a hard block or a break; steady easy volume rebuilds it. ")
+                    + (f"Garmin predicts {fmt_time(goal_pred)} for the {rc['label']} ({others}). " if goal_pred
+                       else f"Garmin's race predictions: {others}. ")
+                    + f"Fitness age {athlete.get('fitness_age')} vs actual age {athlete.get('age')}.",
         })
 
     w = athlete.get("weight_kg") or 75
-    out.append({
-        "level": "info", "area": "Fuel",
-        "title": f"Carb-load target: {round(w * 8)}–{round(w * 10)} g/day Fri–Sat",
-        "text": f"At {w:.0f} kg: 8–10 g carbohydrate per kg for the 36–48 h before the start. On course, plan 60–90 g carbs per hour "
-                f"(a gel every 25–30 min) and 400–800 ml fluid/hour depending on temperature. Practice nothing new on race day.",
-    })
+    days = f"{rc['two_before']}–{rc['one_before']}" if rc["upcoming"] else "the 2 days before"
+    if rc["size"] == "marathon":
+        fuel = {
+            "title": f"Carb-load target: {round(w * 8)}–{round(w * 10)} g/day {days}",
+            "text": f"At {w:.0f} kg: 8–10 g carbohydrate per kg for the 36–48 h before the start. On course, plan 60–90 g carbs per hour "
+                    f"(a gel every 25–30 min) and 400–800 ml fluid/hour depending on temperature. Practice nothing new on race day.",
+        }
+    elif rc["size"] == "half":
+        fuel = {
+            "title": f"Carb target: {round(w * 6)}–{round(w * 8)} g the day before",
+            "text": f"At {w:.0f} kg: 6–8 g carbohydrate per kg on the day before the {rc['label']}, then a familiar breakfast 2–3 h before the start. "
+                    "On course, plan 30–60 g carbs per hour (a gel or two, or a sports drink) and fluid as thirst and temperature "
+                    "dictate. Practice nothing new on race day.",
+        }
+    else:
+        fuel = {
+            "title": "Fuel: keep it simple",
+            "text": f"For a {rc['label']}, eat normally the day before and have a familiar, easy-to-digest breakfast 2–3 h before the start. "
+                    "You won't need to fuel on course — water as you like. Practice nothing new on race day.",
+        }
+    out.append({"level": "info", "area": "Fuel", **fuel})
     return out
 
 
@@ -495,16 +602,21 @@ def main():
     daily = load_daily()
     acts = load_activities(lthr)
     wk = weekly(acts, daily)
+    events_file = RAW / "events.json"
+    events = json.loads(events_file.read_text()) if events_file.exists() else []
+    goal = pick_goal(events, date.today())
+    print(f"goal: {goal['name']} — {goal['date']} ({dist_label(goal['distance_km'])}, "
+          f"{'from the Garmin calendar' if goal.get('source') == 'garmin' else 'default'})")
     payload = {
         "generated": datetime.now().isoformat(timespec="minutes"),
         "athlete": athlete,
         "predictions": preds,
         "prs": sorted(prs, key=lambda r: list(pr_labels.values()).index(r["label"])),
-        "goal": DEFAULT_GOAL,
+        "goal": goal,
         "daily": daily,
         "activities": acts,
         "weekly": wk,
-        "insights": insights(daily, acts, wk, athlete, preds),
+        "insights": insights(daily, acts, wk, athlete, preds, goal),
     }
 
     if args.plain:

@@ -8,6 +8,7 @@ Usage:
 Layout:
     data/raw/daily/YYYY-MM-DD.json   every daily endpoint, untouched
     data/raw/activities/<id>.json    activity summaries
+    data/raw/events.json             races on the Garmin calendar (next one becomes the page goal)
     data/fit/<id>.fit                original per-second activity files
     data/daily.csv, data/activities.csv   flattened tables for analysis
 """
@@ -231,6 +232,63 @@ def write_csv(path: Path, rows: list[dict]) -> None:
     print(f"wrote {path.relative_to(DATA.parent)} ({len(rows)} rows)")
 
 
+EVENTS_BACK_MONTHS = 3     # keep recent races so "last race" still works after one passes
+EVENTS_AHEAD_MONTHS = 18   # how far ahead to look for planned races
+
+
+def sync_events(client: Garmin, today: date) -> None:
+    """Races on the Garmin Connect calendar. build.py picks the next one as the page's goal.
+
+    A failed month is skipped; if every month fails the previous events.json is kept
+    rather than overwritten with an empty list.
+    """
+    months = []
+    y, m = today.year, today.month
+    m -= EVENTS_BACK_MONTHS
+    while m < 1:
+        m, y = m + 12, y - 1
+    for _ in range(EVENTS_BACK_MONTHS + EVENTS_AHEAD_MONTHS + 1):
+        months.append((y, m))
+        m += 1
+        if m > 12:
+            m, y = 1, y + 1
+
+    events, ok = {}, 0
+    for y, m in months:
+        try:
+            items = (client.get_scheduled_workouts(y, m) or {}).get("calendarItems") or []
+        except Exception as e:
+            print(f"\n  could not read calendar {y}-{m:02d}: {e}")
+            continue
+        ok += 1
+        for it in items:
+            if it.get("itemType") != "event" or not it.get("date") or not it.get("title"):
+                continue
+            target = it.get("completionTarget") or {}
+            meters = None
+            if target.get("unitType") == "distance" and target.get("value"):
+                meters = target["value"] * {"meter": 1, "kilometer": 1000, "mile": 1609.344}.get(target.get("unit"), 1)
+            events[(it["date"], it["title"])] = {
+                "title": it["title"],
+                "date": it["date"],
+                "is_race": bool(it.get("isRace")),
+                "activity_type_id": it.get("activityTypeId"),
+                "distance_m": meters,
+                "start_time": (it.get("eventTimeLocal") or {}).get("startTimeHhMm"),
+                "url": it.get("url"),
+                "location": it.get("location"),
+            }
+        time.sleep(0.2)
+
+    if not ok:
+        print("calendar unavailable; keeping previous events.json")
+        return
+    out = sorted(events.values(), key=lambda e: e["date"])
+    (DATA / "raw" / "events.json").write_text(json.dumps(out, indent=1))
+    upcoming = [e for e in out if e["date"] >= today.isoformat() and e["is_race"]]
+    print(f"events synced ({len(upcoming)} upcoming race{'s' if len(upcoming) != 1 else ''})")
+
+
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--days", type=int, default=365, help="backfill window on first sync")
@@ -254,6 +312,7 @@ def main() -> None:
         sync_activities(client, start, today)
         sync_daily(client, start, today)
         sync_profile(client)
+        sync_events(client, today)
         STATE.write_text(json.dumps({"last_synced": today.isoformat()}))
 
     flatten_daily()
